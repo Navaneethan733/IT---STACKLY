@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STACKLY | Services</title>
+  <link rel="icon" type="image/webp" href="./Images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── PAGE-LEVEL ANIMATIONS ── */
+    @keyframes slideDown { from { opacity:0; transform:translateY(-30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideUp   { from { opacity:0; transform:translateY(50px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn    { from { opacity:0; } to { opacity:1; } }
+    @keyframes pulse     { 0%,100%{transform:scale(1);} 50%{transform:scale(1.04);} }
+    @keyframes scanline  { 0%{top:-10%;} 100%{top:110%;} }
+    @keyframes floatY    { 0%,100%{transform:translateY(0px);} 50%{transform:translateY(-12px);} }
+
+    .srv-hero {
+      min-height: auto;
+      background: var(--ink) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--clay);
+    }
+    .srv-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url('./Images/hero-6.webp');
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      opacity:0.25;
+      z-index:0;
+      pointer-events:none;
+    }
+    .srv-hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,210,255,0.03) 40px,rgba(0,210,255,0.03) 41px),
+                  repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,210,255,0.03) 40px,rgba(0,210,255,0.03) 41px);
+      pointer-events:none;
+      z-index:1;
+    }
+    .srv-hero > * { position:relative; z-index:2; }
+    .srv-hero-chip {
+      display:inline-block;
+      border: 2px solid var(--clay);
+      padding: 3px 14px;
+      font-size:0.65rem;
+      font-weight:700;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      color:var(--clay);
+      margin-bottom:1.5rem;
+      animation: slideDown 0.6s ease both;
+    }
+    .srv-hero h1 {
+      font-family:'Unbounded',sans-serif;
+      font-size: clamp(1.8rem,9vw,8rem);
+      font-weight:900;
+      line-height:0.92;
+      letter-spacing:-0.03em;
+      color:var(--cream);
+      overflow: hidden;
+    }
+    .srv-hero h1 em {
+      font-style:normal;
+      -webkit-text-stroke: 3px var(--clay);
+      color:transparent;
+      display:block;
+    }
+    .srv-hero h1 strong {
+      display:block;
+      color:var(--clay);
+    }
+    .srv-hero-sub {
+      color: rgba(240,244,248,0.7);
+      font-size:0.9rem;
+      line-height:1.8;
+      max-width:520px;
+      margin-top:1.2rem;
+      animation: slideUp 0.7s 0.25s ease both;
+    }
+    .srv-hero-actions { animation: slideUp 0.7s 0.4s ease both; }
+
+    .hero-stat-row {
+      display:flex;
+      gap:3rem;
+      margin-top:0;
+      flex-wrap:wrap;
+      animation: fadeIn 1s 0.6s ease both;
+      padding-top:2rem;
+    }
+    .hero-stat { text-align:left; }
+    .hero-stat .num {
+      font-family:'Unbounded',sans-serif;
+      font-size:2.2rem;
+      font-weight:900;
+      color:var(--clay);
+      display:block;
+    }
+    .hero-stat .lbl { font-size:0.65rem; opacity:0.5; letter-spacing:0.1em; text-transform:uppercase; color:var(--cream); }
+
+    /* ── SERVICE TICKER ── */
+    .srv-ticker {
+      background: var(--clay);
+      border-top:3px solid var(--ink);
+      border-bottom:3px solid var(--ink);
+      padding:0.7rem 0;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+    .srv-ticker-inner {
+      display:inline-flex;
+      gap:2.5rem;
+      animation: ticker-scroll 20s linear infinite;
+    }
+    @keyframes ticker-scroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    .srv-ticker-item {
+      font-family:'Unbounded',sans-serif;
+      font-size:0.68rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      color:#fff;
+    }
+
+    /* ── SERVICES GRID ── */
+    .srv-section {
+      padding: 7rem 2.5rem;
+      background: var(--ink) !important;
+      border-bottom: 4px solid var(--ink);
+      position:relative;
+      overflow:hidden;
+    }
+    .srv-section::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url('./Images/hero-5.webp');
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      opacity:0.1;
+      pointer-events:none;
+    }
+    .srv-section > * { position:relative; z-index:2; }
+    .srv-section-label {
+      font-size:0.65rem;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--clay);
+      font-weight:700;
+      margin-bottom:0.8rem;
+    }
+    .srv-section-title {
+      font-family:'Unbounded',sans-serif;
+      font-size: clamp(2rem,5vw,4rem);
+      font-weight:900;
+      line-height:1;
+      letter-spacing:-0.03em;
+      color:var(--cream);
+    }
+    .srv-section-title span { color:var(--clay); }
+    .srv-intro {color:var(--cream); max-width:580px; font-size:0.9rem; line-height:1.8; opacity:0.75; margin-top:1.2rem; }
+
+    .srv-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+      gap:0;
+      margin-top:4rem;
+      border: 3px solid var(--ink);
+    }
+    .srv-card {
+      padding: 2.5rem;
+      border: 1px solid rgba(10,25,47,0.12);
+      position:relative;
+      overflow:hidden;
+      cursor:default;
+      transition: background 0.25s, transform 0.2s;
+      background: var(--cream);
+    }
+    .srv-card::before {
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height:4px;
+      background: var(--clay);
+      transform: scaleX(0);
+      transform-origin:left;
+      transition: transform 0.35s cubic-bezier(0.2,1,0.3,1);
+    }
+    .srv-card:hover::before { transform:scaleX(1); }
+    .srv-card:hover { background: var(--ink); }
+    .srv-card:hover .srv-card-icon { color:var(--clay); }
+    .srv-card:hover .srv-card-title { color:var(--cream); }
+    .srv-card:hover .srv-card-desc { color:rgba(240,244,248,0.7); }
+    .srv-card:hover .srv-card-tags span { border-color:rgba(0,210,255,0.3); color:var(--clay); }
+    .srv-card:hover .srv-card-num { color:rgba(0,210,255,0.15); }
+    .srv-card-num {
+      position:absolute;
+      top:1.5rem; right:2rem;
+      font-family:'Unbounded',sans-serif;
+      font-size:3.5rem;
+      font-weight:900;
+      color:rgba(10,25,47,0.06);
+      transition: color 0.25s;
+      pointer-events:none;
+    }
+    .srv-card-icon {
+      color:var(--clay);
+      margin-bottom:1.5rem;
+      transition:color 0.25s;
+    }
+    .srv-card-icon svg { width:36px; height:36px; stroke:currentColor; stroke-width:1.5; fill:none; }
+    .srv-card-title {
+      font-family:'Unbounded',sans-serif;
+      font-size:1.05rem;
+      font-weight:900;
+      letter-spacing:-0.01em;
+      color:var(--ink);
+      margin-bottom:0.8rem;
+      transition: color 0.25s;
+    }
+    .srv-card-desc {
+      font-size:0.82rem;
+      line-height:1.75;
+      opacity:0.75;
+      color:var(--ink);
+      transition: color 0.25s;
+    }
+    .srv-card-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.5rem; }
+    .srv-card-tags span {
+      font-size:0.6rem;
+      font-weight:700;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      border: 1.5px solid rgba(10,25,47,0.2);
+      padding:3px 10px;
+      color:var(--mud);
+      transition: border-color 0.25s, color 0.25s;
+    }
+
+    /* ── PROCESS ── */
+    .srv-process {
+      padding:7rem 2.5rem;
+      background:var(--ink);
+      border-bottom: 4px solid var(--clay);
+      position:relative;
+      overflow:hidden;
+    }
+    .srv-process .srv-section-title { color:var(--cream); }
+    .srv-process .srv-section-label { color:var(--clay); }
+    .srv-process .srv-intro { color: rgba(240,244,248,0.6); }
+
+    .process-steps {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:0;
+      margin-top:4rem;
+      border: 3px solid rgba(0,210,255,0.25);
+      position:relative;
+    }
+    .process-step {
+      padding:2.5rem 2rem;
+      border-right: 1px solid rgba(0,210,255,0.15);
+      position:relative;
+      cursor:default;
+      transition: background 0.25s;
+    }
+    .process-step:last-child { border-right:none; }
+    .process-step:hover { background: rgba(0,210,255,0.05); }
+    .step-num {
+      font-family:'Unbounded',sans-serif;
+      font-size:0.6rem;
+      font-weight:900;
+      color:var(--clay);
+      letter-spacing:0.15em;
+      margin-bottom:1.2rem;
+    }
+    .step-title {
+      font-family:'Unbounded',sans-serif;
+      font-size:0.9rem;
+      font-weight:900;
+      color:var(--cream);
+      margin-bottom:0.6rem;
+    }
+    .step-desc { font-size:0.78rem; line-height:1.7; color:rgba(240,244,248,0.5); }
+    .step-arrow {
+      position:absolute;
+      right:-14px;
+      top:50%;
+      transform:translateY(-50%);
+      width:26px;
+      height:26px;
+      background:var(--clay);
+      border:2px solid var(--ink);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:2;
+      font-size:0.7rem;
+      color:var(--ink);
+      font-weight:900;
+    }
+    .process-step:last-child .step-arrow { display:none; }
+
+    /* ── TECH STACK ── */
+    .srv-tech {
+      padding:6rem 2.5rem;
+      background: var(--cream);
+      border-bottom:4px solid var(--ink);
+    }
+    .tech-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px,1fr));
+      gap:1.5px;
+      margin-top:3.5rem;
+      border:3px solid var(--ink);
+    }
+    .tech-item {
+      padding:2rem 1rem;
+      border:1px solid rgba(10,25,47,0.08);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:0.6rem;
+      cursor:default;
+      transition: background 0.2s, transform 0.2s;
+      position:relative;
+      overflow:hidden;
+    }
+    .tech-item:hover {
+      background:var(--clay);
+      z-index:2;
+      transform:scale(1.06);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .tech-item:hover .tech-label { color:var(--ink); }
+    .tech-icon {
+      font-family:'Unbounded',sans-serif;
+      font-size:1.4rem;
+      font-weight:900;
+      color:var(--clay);
+    }
+    .tech-item:hover .tech-icon { color:var(--ink); }
+    .tech-label { font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--mud); text-align:center; }
+
+    /* ── CTA BANNER ── */
+    .srv-cta {
+      padding:6rem 2.5rem;
+      background:var(--clay);
+      border-bottom:4px solid var(--ink);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:2rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .srv-cta::before {
+      content:"GO";
+      position:absolute;
+      right:-1rem;
+      top:50%;
+      transform:translateY(-50%);
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(6rem,15vw,14rem);
+      font-weight:900;
+      color:rgba(10,25,47,0.07);
+      pointer-events:none;
+      line-height:1;
+    }
+    .srv-cta-text h2 {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(1.8rem,4vw,3.5rem);
+      font-weight:900;
+      color:var(--ink);
+      line-height:1;
+    }
+    .srv-cta-text p { font-size:0.85rem; color:rgba(10,25,47,0.7); margin-top:0.8rem; }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-left.active { opacity:1; transform:translateX(0); }
+
+    @media(max-width:768px) {
+      .srv-hero { padding:7rem 1.2rem 4rem; }
+      .srv-section,.srv-process,.srv-tech { padding:4rem 1.2rem; }
+      .process-steps { grid-template-columns:1fr; }
+      .process-step { border-right:none; border-bottom:1px solid rgba(0,210,255,0.15); }
+      .step-arrow { display:none; }
+      .srv-cta { padding:4rem 1.2rem; flex-direction:column; }
+    }
+  </style>
+</head>
+<body class="grainy">
+    <!-- ─── STACKLY PRELOADER ──────────────────────── -->
+    <div id="stackly-preloader">
+        <div class="preloader-glitch" data-text="STACKLY">STACKLY</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+        <div class="preloader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html"><div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html" style="color:var(--clay)">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+    <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <section class="srv-hero">
+    <div class="ghost-bg" style="color:rgba(0,210,255,0.04);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;">SRV</div>
+    <div class="srv-hero-chip">✦ Our Services</div>
+    <h1>
+      <span>WE</span>
+      <em>BUILD</em>
+      <strong>EVERYTHING.</strong>
+    </h1>
+    <p class="srv-hero-sub">From nimble startups to Fortune 500 enterprises — we architect, engineer, and deploy digital infrastructure that doesn't just work today, but scales tomorrow.</p>
+    <div class="srv-hero-actions" style="display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap;">
+      <a href="contact.html" class="btn-primary">Start a Project →</a>
+      <a href="#services-grid" class="btn-ghost">Browse Services ↓</a>
+    </div>
+  </section>
+
+  <!-- STATS BAR (moved out of hero) -->
+  <section class="stats-bar" style="background:var(--ink); padding:0 2.5rem 3rem;">
+    <div style="border-top:2px solid rgba(0,210,255,0.2); width:100%;"></div>
+    <div class="hero-stat-row" style="margin-top:2rem;">
+      <div class="hero-stat"><span class="num">120+</span><span class="lbl">Projects Delivered</span></div>
+      <div class="hero-stat"><span class="num">99.9%</span><span class="lbl">Uptime SLA</span></div>
+      <div class="hero-stat"><span class="num">40+</span><span class="lbl">Tech Partners</span></div>
+      <div class="hero-stat"><span class="num">12</span><span class="lbl">Industries Served</span></div>
+    </div>
+  </section>
+
+  <!-- SERVICE TICKER -->
+  <div class="srv-ticker">
+    <div class="srv-ticker-inner">
+      <span class="srv-ticker-item">★ CLOUD ARCHITECTURE</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">CYBERSECURITY</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">DEVOPS & CI/CD</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">AI & ML INTEGRATION</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">WEB & MOBILE</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">DATA ENGINEERING</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">IT CONSULTING</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">★ CLOUD ARCHITECTURE</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">CYBERSECURITY</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">DEVOPS & CI/CD</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">AI & ML INTEGRATION</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">WEB & MOBILE</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">DATA ENGINEERING</span><span style="opacity:.4">◆</span>
+      <span class="srv-ticker-item">IT CONSULTING</span><span style="opacity:.4">◆</span>
+    </div>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <section class="srv-section" id="services-grid">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="srv-section-label">— What We Do</div>
+        <h2 class="srv-section-title">CORE <span>SERVICES</span></h2>
+        <p class="srv-intro">Every engagement starts with understanding your unique challenges. We match the right stack to the right problem — no bloat, no guesswork.</p>
+      </div>
+
+      <div class="srv-grid reveal">
+        <!-- Card 1 -->
+        <div class="srv-card">
+          <div class="srv-card-num">01</div>
+          <div style="width:100%; height:120px; background-image:url('./Images/cloud.webp'); background-size:cover; background-position:center; margin-bottom:1.5rem; border:1px solid var(--ink);"></div>
+          <div class="srv-card-icon"><i data-lucide="cloud"></i></div>
+          <div class="srv-card-title">Cloud Architecture</div>
+          <div class="srv-card-desc">Design and deploy bulletproof multi-cloud infrastructure on AWS, GCP, and Azure. We handle migration, optimization, and ongoing governance.</div>
+          <div class="srv-card-tags"><span>AWS</span><span>GCP</span><span>Azure</span><span>Terraform</span></div>
+        </div>
+        <!-- Card 2 -->
+        <div class="srv-card">
+          <div class="srv-card-num">02</div>
+          <div style="width:100%; height:120px; background-image:url('./Images/security.webp'); background-size:cover; background-position:center; margin-bottom:1.5rem; border:1px solid var(--ink);"></div>
+          <div class="srv-card-icon"><i data-lucide="shield"></i></div>
+          <div class="srv-card-title">Cybersecurity</div>
+          <div class="srv-card-desc">Zero-trust architecture, penetration testing, SOC2 compliance, and 24/7 threat monitoring. We harden your systems from the inside out.</div>
+          <div class="srv-card-tags"><span>Zero Trust</span><span>PenTest</span><span>SOC2</span></div>
+        </div>
+        <!-- Card 3 -->
+        <div class="srv-card">
+          <div class="srv-card-num">03</div>
+          <div style="width:100%; height:120px; background-image:url('./Images/consulting.webp'); background-size:cover; background-position:center; margin-bottom:1.5rem; border:1px solid var(--ink);"></div>
+          <div class="srv-card-icon"><i data-lucide="git-branch"></i></div>
+          <div class="srv-card-title">IT Consultancy</div>
+          <div class="srv-card-desc">Strategic planning and technology roadmapping to ensure your infrastructure aligns with your long-term business objectives and growth.</div>
+          <div class="srv-card-tags"><span>Strategy</span><span>Audit</span><span>Roadmap</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="srv-process">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="srv-section-label">— How We Work</div>
+        <h2 class="srv-section-title" style="color:var(--cream)">THE <span>PROCESS</span></h2>
+        <p class="srv-intro">Predictable delivery isn't magic — it's method. Our proven six-step framework eliminates surprises and keeps every project on track.</p>
+      </div>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="step-num">STEP 01</div>
+          <div class="step-title">Discovery</div>
+          <div class="step-desc">Deep-dive workshops to map requirements, risks, and success metrics.</div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">STEP 02</div>
+          <div class="step-title">Architecture</div>
+          <div class="step-desc">System design, tech-stack selection, and detailed project blueprint.</div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">STEP 03</div>
+          <div class="step-title">Build</div>
+          <div class="step-desc">Agile sprints with daily standups and live progress dashboards.</div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">STEP 04</div>
+          <div class="step-title">QA & Test</div>
+          <div class="step-desc">Automated test suites, security audits, and performance benchmarking.</div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">STEP 05</div>
+          <div class="step-title">Deploy</div>
+          <div class="step-desc">Zero-downtime releases with rollback-ready pipelines and monitoring.</div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">STEP 06</div>
+          <div class="step-title">Support</div>
+          <div class="step-desc">Ongoing retainer, 24/7 on-call SRE team, and quarterly reviews.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="srv-tech">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="srv-section-label">— Technology</div>
+        <h2 class="srv-section-title">OUR <span>STACK</span></h2>
+      </div>
+      <div class="tech-grid reveal">
+        <div class="tech-item"><span class="tech-icon">⚛</span><span class="tech-label">React</span></div>
+        <div class="tech-item"><span class="tech-icon">▲</span><span class="tech-label">Next.js</span></div>
+        <div class="tech-item"><span class="tech-icon">🐍</span><span class="tech-label">Python</span></div>
+        <div class="tech-item"><span class="tech-icon">☁</span><span class="tech-label">AWS</span></div>
+        <div class="tech-item"><span class="tech-icon">🐳</span><span class="tech-label">Docker</span></div>
+        <div class="tech-item"><span class="tech-icon">⚙</span><span class="tech-label">Kubernetes</span></div>
+        <div class="tech-item"><span class="tech-icon">🔥</span><span class="tech-label">Firebase</span></div>
+        <div class="tech-item"><span class="tech-icon">🐘</span><span class="tech-label">PostgreSQL</span></div>
+        <div class="tech-item"><span class="tech-icon">📊</span><span class="tech-label">Snowflake</span></div>
+        <div class="tech-item"><span class="tech-icon">🤖</span><span class="tech-label">TensorFlow</span></div>
+        <div class="tech-item"><span class="tech-icon">🟢</span><span class="tech-label">Node.js</span></div>
+        <div class="tech-item"><span class="tech-icon">📱</span><span class="tech-label">Flutter</span></div>
+        <div class="tech-item"><span class="tech-icon">🔐</span><span class="tech-label">Vault</span></div>
+        <div class="tech-item"><span class="tech-icon">📦</span><span class="tech-label">Terraform</span></div>
+        <div class="tech-item"><span class="tech-icon">⚡</span><span class="tech-label">GraphQL</span></div>
+        <div class="tech-item"><span class="tech-icon">🌐</span><span class="tech-label">Cloudflare</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="srv-cta">
+    <div class="srv-cta-text reveal-left">
+      <h2>READY TO<br>BUILD?</h2>
+      <p>Tell us what you need. We'll get back within 24 hours.</p>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2;">
+      <a href="contact.html" class="btn-primary" style="border-color:var(--ink);background:var(--ink);color:var(--cream);">Start a Project →</a>
+      <a href="about.html" class="btn-ghost" style="border-color:var(--ink);color:var(--ink);">Meet the Team</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-compact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div>
+        <p>Innovative technology solutions for next-generation enterprises. We provide the infrastructure for the digital leaders of tomorrow.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="404.html" class="codepen-link">
+            <i data-lucide="shield-check"></i>
+            ◉ Trusted Solutions Partner
+          </a>
+        </div>
+        <div class="footer-social" style="margin-top:2rem; display:flex; gap:1.2rem;">
+          <a href="404.html" class="social-icon-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="404.html" class="social-icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="404.html" class="social-icon-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>✦ Solutions</h4>
+        <a href="404.html">Cloud Systems</a>
+        <a href="404.html">Custom Software</a>
+        <a href="404.html">Cyber Security</a>
+        <a href="404.html">AI &amp; ML</a>
+        <a href="404.html">Enterprise IT</a>
+        <a href="404.html">Consultancy</a>
+      </div>
+      <div class="footer-col">
+        <h4>◆ Company</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 STACKLY. All rights reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

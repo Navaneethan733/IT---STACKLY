@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY | Innovative IT & Enterprise Solutions</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="./Images/logo.webp">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="grainy">
+    <!-- ─── STACKLY PRELOADER ──────────────────────── -->
+    <div id="stackly-preloader">
+        <div class="preloader-glitch" data-text="STACKLY">STACKLY</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+        <div class="preloader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+    <!-- Header / Nav -->
+    <nav>
+        <a href="index.html"><div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+        </div>
+        <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- ─── HERO ────────────────────────────────────── -->
+    <section class="hero grainy" id="home">
+        <div class="ghost-bg">STACKLY</div>
+
+        <div class="parallax-strip" id="parallaxStrip">
+            <div class="parallax-col" data-speed="0.3">
+                <img src="./Images/hero-1.webp" alt="Tech Office">
+            </div>
+            <div class="parallax-col" data-speed="0.5">
+                <img src="./Images/hero-2.webp" alt="Software Dev">
+            </div>
+            <div class="parallax-col" data-speed="0.2">
+                <img src="./Images/hero-3.webp" alt="Data Science">
+            </div>
+            <div class="parallax-col" data-speed="0.6">
+                <img src="./Images/hero-4.webp" alt="Cyber Security">
+            </div>
+            <div class="parallax-col" data-speed="0.35">
+                <img src="./Images/hero-5.webp" alt="Business Tech">
+            </div>
+            <div class="parallax-col" data-speed="0.55">
+                <img src="./Images/hero-6.webp" alt="Cloud Systems">
+            </div>
+        </div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-chip">✦ Enterprise IT & Cloud Solutions — Est. 2024</div>
+            <h1>
+                <span class="fill">SCALABLE</span>
+                <span class="stroke">SYSTEMS</span>
+                <span class="clay-fill">CODED.</span>
+            </h1>
+            <p class="hero-sub">
+                Empowering modern enterprises through bespoke software engineering, cloud architecture, and mission-critical IT infrastructure. We build the backbone of your digital success.
+            </p>
+            <div class="hero-actions">
+                <a href="./pages/error.html" class="btn-primary">Get Started ↓</a>
+                <a href="./pages/error.html" class="btn-ghost">Our Solutions →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── TICKER ──────────────────────────────────── -->
+    <div class="ticker">
+        <div class="ticker-inner" id="tickerInner">
+            <span class="ticker-item">★ CLOUD ARCHITECTURE</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">CYBER SECURITY</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">SaaS DEVELOPMENT</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">AI & MACHINE LEARNING</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">IT CONSULTANCY</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">MANAGED SERVICES</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">BLOCKCHAIN SOLUTIONS</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">★ CLOUD ARCHITECTURE</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">CYBER SECURITY</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">SaaS DEVELOPMENT</span>
+            <span class="ticker-sep">◆</span>
+            <span class="ticker-item">AI & MACHINE LEARNING</span>
+            <span class="ticker-sep">◆</span>
+        </div>
+    </div>
+
+     <!-- ─── SCROLL-ANIMATED GROWTH ──────────────────── -->
+    <section id="scroll-section">
+        <svg class="line-svg" role="presentational" preserveAspectRatio="none" width="100%" fill="none" viewBox="-480 0 2300 2241">
+            <path class="anim-overview-stroke" d="M-841 100H584c124 0 225 101 225 225v0c0 124-101 225-225 225h-95a281 281 0 00-281 281v0c0 155 125 281 281 281h442c167 0 304 136 304 304v0c0 168-137 304-304 304H795a439 439 0 00-439 439v82" opacity=".45"></path>
+        </svg>
+        <div class="scroll-container">
+            <h2 class="scroll-title">ENGINEERED FOR <span>SCALE.</span></h2>
+            <div class="scroll-layout">
+                <div class="scroll-box box-1">
+                    <h3>Cloud Native Core</h3>
+                    <p>We build on AWS and Azure with zero-downtime blueprints. Our architectures are designed to handle 10x traffic spikes without a single manual intervention.</p>
+                    <a href="./pages/error.html" class="btn-primary" style="display:inline-block; padding:10px 25px;">Blueprint →</a>
+                </div>
+                <img class="scroll-img image-1" src="./Images/cloud.webp" width="400" height="400" alt="Cloud Infrastructure" />
+                
+                <div class="scroll-box box-2">
+                    <h3>Security First</h3>
+                    <p>Every line of code is audited for SOC2 and ISO compliance. We implement zero-trust protocols at the network layer to ensure your data remains your data.</p>
+                    <a href="./pages/error.html" class="btn-primary" style="display:inline-block; padding:10px 25px; background:var(--clay); color:var(--ink);">Audit →</a>
+                </div>
+                <img class="scroll-img image-2" src="./Images/security.webp" width="400" height="600" alt="Cyber Security" />
+                
+                <div class="scroll-box box-3">
+                    <h3>AI-Driven Velocity</h3>
+                    <p>Accelerating development cycles with custom LLM integrations. We use machine learning to predict bottlenecks before they affect your users.</p>
+                    <a href="./pages/error.html" class="btn-primary" style="display:inline-block; padding:10px 25px;">Accelerate →</a>
+                </div>
+                <img src="./Images/consulting.webp" class="scroll-img image-3" width="400" height="400" alt="IT Consulting" />
+                
+                <div class="scroll-box box-4">
+                    <h3>Global Resilience</h3>
+                    <p>Distributed network hubs with 99.99% SLA. Our edge computing strategy brings your logic closer to your users, reducing latency to single digits.</p>
+                    <a href="./pages/error.html" class="btn-primary" style="display:inline-block; padding:10px 25px; background:var(--clay); color:var(--ink);">Connect →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-classes grainy" id="services">
+        <div class="ghost-bg" style="font-size:clamp(5rem,14vw,13rem);top:40%;opacity:0.03;">SERVICE</div>
+        <div class="section-header">
+            <div>
+                <p class="section-label">✦ Core Capabilities</p>
+                <h2 class="section-title">OUR <span class="accent">SOLUTIONS</span></h2>
+            </div>
+            <a href="./pages/error.html" class="btn-ghost" style="align-self:flex-end">Full Portfolio →</a>
+        </div>
+
+        <div class="classes-grid">
+            <div class="class-card grainy">
+                <span class="class-icon">☁️</span>
+                <span class="class-level">✦ Enterprise</span>
+                <h3 class="class-name">CLOUD INFRASTRUCTURE</h3>
+                <p class="class-desc">Highly scalable, resilient cloud systems designed for modern workloads. DevOps-ready and fully managed environments.</p>
+                <div class="class-meta">
+                    <span class="class-price">SLA 99.99%</span>
+                    <span class="class-duration">// AWS · Azure · GCP</span>
+                </div>
+            </div>
+
+            <div class="class-card grainy">
+                <span class="class-icon">🖥️</span>
+                <span class="class-level">◉ Advanced</span>
+                <h3 class="class-name">CUSTOM SOFTWARE</h3>
+                <p class="class-desc">Bespoke software solutions tailored to your unique business needs. From mobile apps to complex enterprise systems.</p>
+                <div class="class-meta">
+                    <span class="class-price">Scalable</span>
+                    <span class="class-duration">// Python · Java · JS</span>
+                </div>
+            </div>
+
+            <div class="class-card grainy">
+                <span class="class-icon">🛡️</span>
+                <span class="class-level">✦ Security</span>
+                <h3 class="class-name">CYBER DEFENSE</h3>
+                <p class="class-desc">Comprehensive security audits, threat monitoring, and rapid response systems protecting your digital assets 24/7.</p>
+                <div class="class-meta">
+                    <span class="class-price">Secure</span>
+                    <span class="class-duration">// SOC2 · Compliance</span>
+                </div>
+            </div>
+
+            <div class="class-card grainy">
+                <span class="class-icon">🤖</span>
+                <span class="class-level">◉ Intelligence</span>
+                <h3 class="class-name">AI & ANALYTICS</h3>
+                <p class="class-desc">Transforming raw data into actionable business intelligence using advanced machine learning models and data pipelines.</p>
+                <div class="class-meta">
+                    <span class="class-price">Data-Driven</span>
+                    <span class="class-duration">// ML · Big Data</span>
+                </div>
+            </div>
+
+            <div class="class-card grainy">
+                <span class="class-icon">📈</span>
+                <span class="class-level">⬡ Strategic</span>
+                <h3 class="class-name">IT CONSULTANCY</h3>
+                <p class="class-desc">Strategic technology roadmaps to align your IT infrastructure with your long-term business goals and growth.</p>
+                <div class="class-meta">
+                    <span class="class-price">Executive</span>
+                    <span class="class-duration">// vCTO · Roadmap</span>
+                </div>
+            </div>
+
+            <div class="class-card grainy">
+                <span class="class-icon">♾️</span>
+                <span class="class-level">★ Support</span>
+                <h3 class="class-name">24/7 MANAGED OPS</h3>
+                <p class="class-desc">Round-the-clock monitoring and proactive maintenance. We manage your systems so you can focus on your core business.</p>
+                <div class="class-meta">
+                    <span class="class-price">Premium</span>
+                    <span class="class-duration">// Global · 24/7 · Proactive</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── GALLERY STRIP ────────────────────────────── -->
+    <div class="gallery-strip">
+        <div class="gallery-strip-inner" id="galleryStrip">
+            <img src="./Images/scroll-1.webp" alt="Datacenter">
+            <img src="./Images/scroll-2.webp" alt="Coding">
+            <img src="./Images/scroll-3.webp" alt="Team Work">
+            <img src="./Images/scroll-4.webp" alt="Modern Office">
+            <img src="./Images/scroll-5.webp" alt="Tech People">
+            <img src="./Images/scroll-6.webp" alt="Developer Studio">
+        </div>
+        <p class="gallery-caption">✦ IT Frontiers — Engineering Excellence for Global Enterprises</p>
+    </div>
+
+    <!-- ─── VIBES ─────────────────────────────────────── -->
+    <section class="section-vibes grainy" id="about">
+        <div class="ghost-bg" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(6rem,16vw,14rem);opacity:0.06;">SCALABLE</div>
+        <div class="vibes-grid">
+            <div class="vibes-text">
+                <p class="section-label">◉ Operational Excellence</p>
+                <h2 class="section-title">ACCELERATE.<br>SOLVE <span class="accent">BETTER.</span></h2>
+                <p>STACKLY is built for enterprises that demand high-performance computing integrated seamlessly with their business workflow.</p>
+                <p>We are a community of engineers, architects, data scientists, and developers — all united by the mission to accelerate business discovery through code.</p>
+                <div class="hero-actions" style="margin-top:2rem;">
+                    <a href="./pages/error.html" class="btn-primary" style="background:var(--clay);border-color:var(--clay);">Partner With Us →</a>
+                </div>
+            </div>
+            <div class="vibes-stats">
+                <div class="stat-box grainy">
+                    <div class="stat-num">500<span class="unit">+</span></div>
+                    <div class="stat-label">Clients Worldwide</div>
+                </div>
+                <div class="stat-box grainy">
+                    <div class="stat-num">1.5</div>
+                    <div class="stat-label">Terabytes Processed</div>
+                </div>
+                <div class="stat-num" style="display:none">98%</div> <!-- Placeholder to keep grid structure if needed -->
+                <div class="stat-box grainy">
+                    <div class="stat-num">98%</div>
+                    <div class="stat-label">Uptime Record</div>
+                </div>
+                <div class="stat-box grainy">
+                    <div class="stat-num">∞</div>
+                    <div class="stat-label">Global Presence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── WHY CHOOSE US ──────────────────────────────── -->
+    <section class="section-vibes grainy section-why" id="why-us">
+        <div class="ghost-bg ghost-trust">TRUST</div>
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <p class="section-label">✦ The STACKLY Advantage</p>
+                    <h2 class="section-title">WHY <span class="accent">CHOOSE</span> US?</h2>
+                </div>
+            </div>
+            <div class="classes-grid grid-why">
+                <div class="class-card grainy card-transparent">
+                    <span class="class-icon">⚡</span>
+                    <h3 class="class-name">RAPID DEPLOYMENT</h3>
+                    <p class="class-desc">We reduce time-to-market using our proprietary automation frameworks and agile engineering workflows. Speed meets precision.</p>
+                </div>
+                <div class="class-card grainy" style="background:transparent;">
+                    <span class="class-icon">🔐</span>
+                    <h3 class="class-name">SECURITY FIRST</h3>
+                    <p class="class-desc">Every line of code we write is audited for security. We build fortresses, not just software. Total data integrity guaranteed.</p>
+                </div>
+                <div class="class-card grainy" style="background:transparent;">
+                    <span class="class-icon">📈</span>
+                    <h3 class="class-name">INFINITE SCALING</h3>
+                    <p class="class-desc">Our cloud-native architectures are designed to grow with your business. From 100 to 100 million users, we handle the load.</p>
+                </div>
+                <div class="class-card grainy" style="background:transparent;">
+                    <span class="class-icon">🤝</span>
+                    <h3 class="class-name">EXPERT PARTNERS</h3>
+                    <p class="class-desc">We don't just work for you; we work with you. Our senior architects act as an extension of your primary engineering team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CASE STUDIES ──────────────────────────────── -->
+    <section class="section-classes grainy section-cases" id="cases">
+        <div class="ghost-bg ghost-impact">IMPACT</div>
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <p class="section-label">✦ Real World Results</p>
+                    <h2 class="section-title title-light">PROJECT <span class="accent accent-green">HIGHLIGHTS</span></h2>
+                </div>
+            </div>
+            <div class="classes-grid">
+                <div class="class-card grainy card-dark">
+                    <h3 class="class-name name-light">FINTECH CORE</h3>
+                    <p class="class-desc desc-dim">Rebuilt the transaction engine for a global challenger bank, achieving 10k TPS with sub-millisecond latency.</p>
+                    <a href="error.html" class="btn-ghost btn-light">Case Details →</a>
+                </div>
+                <div class="class-card grainy card-dark">
+                    <h3 class="class-name name-light">E-COM SCALE</h3>
+                    <p class="class-desc desc-dim">Migrated a legacy retail platform to AWS Lambda, reducing operational costs by 65% while handling 5x peak traffic.</p>
+                    <a href="error.html" class="btn-ghost btn-light">Case Details →</a>
+                </div>
+                <div class="class-card grainy card-dark">
+                    <h3 class="class-name name-light">AI LOGISTICS</h3>
+                    <p class="class-desc desc-dim">Implemented an AI routing system that optimized fuel consumption by 22% for a fleet of 5,000 delivery vehicles.</p>
+                    <a href="error.html" class="btn-ghost btn-light">Case Details →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- ─── TRUSTED BY ──────────────────────────────── -->
+    <div class="ticker ticker-brands" style="background:var(--ink); color:var(--cream); border-top:none; border-bottom:4px solid var(--clay); height:80px;">
+        <div class="ticker-inner" id="brandsInner">
+            <span class="ticker-item">✦ MICROSOFT</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">AMAZON WEB SERVICES</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">GOOGLE CLOUD</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">TESLA SYSTEMS</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">NVIDIA AI</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">SPACE X</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">✦ MICROSOFT</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">AMAZON WEB SERVICES</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">GOOGLE CLOUD</span>
+            <span class="ticker-sep">/</span>
+            <span class="ticker-item">TESLA SYSTEMS</span>
+        </div>
+    </div>
+
+    <!-- ─── FAQ ────────────────────────────────────── -->
+    <section class="section-vibes grainy section-faq" id="faq">
+        <div class="container container-narrow">
+            <div class="section-header header-center">
+                <p class="section-label">✦ Questions? We Have Answers</p>
+                <h2 class="section-title">TECHNICAL <span class="accent">FAQ</span></h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4>HOW DO YOU HANDLE DATA MIGRATION?</h4>
+                    <p>We use a zero-downtime ETL process with redundant verification layers to ensure 100% data fidelity during transition.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>WHAT IS YOUR TECHNOLOGY STACK?</h4>
+                    <p>While we are stack-agnostic, we specialize in high-performance environments (Go, Rust, Node.js) and cloud-native architectures.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>DO YOU PROVIDE POST-LAUNCH SUPPORT?</h4>
+                    <p>Yes, we offer tiered 24/7 managed operations and maintenance agreements to ensure your systems remain cutting-edge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── OUR PROCESS ──────────────────────────────── -->
+    <section class="section-vibes grainy section-process" id="process">
+        <div class="ghost-bg ghost-method">METHOD</div>
+        <div class="container">
+            <div class="section-header header-center">
+                <p class="section-label">✦ Engineered For Success</p>
+                <h2 class="section-title title-light">OUR <span class="accent">PROCESS</span></h2>
+            </div>
+            <div class="classes-grid grid-process">
+                <div class="class-card grainy card-dark">
+                    <span class="class-icon">01</span>
+                    <h3 class="class-name name-light">DISCOVERY</h3>
+                    <p class="class-desc desc-dim">We deep-dive into your business challenges, identifying technical bottlenecks and strategic opportunities.</p>
+                </div>
+                <div class="class-card grainy card-dark">
+                    <span class="class-icon">02</span>
+                    <h3 class="class-name name-light">STRATEGY</h3>
+                    <p class="class-desc desc-dim">Designing the blueprint. We select the optimal technology stack and architecture for long-term scalability.</p>
+                </div>
+                <div class="class-card grainy card-dark">
+                    <span class="class-icon">03</span>
+                    <h3 class="class-name name-light">DEVELOPMENT</h3>
+                    <p class="class-desc desc-dim">Agile implementation with focused sprints. We use automated CI/CD pipelines to ensure continuous delivery.</p>
+                </div>
+                <div class="class-card grainy card-dark">
+                    <span class="class-icon">04</span>
+                    <h3 class="class-name name-light">OPTIMIZATION</h3>
+                    <p class="class-desc desc-dim">Rigorous testing, performance tuning, and security audits. We don't launch until everything is perfect.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── ECOSYSTEM ────────────────────────────────── -->
+    <section class="section-classes grainy section-ecosystem" id="ecosystem">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <p class="section-label">✦ Technical Stack</p>
+                    <h2 class="section-title">THE <span class="accent">STACKLY</span> ECOSYSTEM</h2>
+                </div>
+            </div>
+            <div class="classes-grid ecosystem-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                <div class="class-card grainy eco-card">
+                    <h4 class="eco-name">AWS</h4>
+                    <p class="eco-label">CLOUD DEPLOYMENT</p>
+                </div>
+                <div class="class-card grainy eco-card">
+                    <h4 class="eco-name">K8S</h4>
+                    <p class="eco-label">ORCHESTRATION</p>
+                </div>
+                <div class="class-card grainy eco-card">
+                    <h4 class="eco-name">RUST</h4>
+                    <p class="eco-label">SYSTEMS CORE</p>
+                </div>
+                <div class="class-card grainy eco-card">
+                    <h4 class="eco-name">GO</h4>
+                    <p class="eco-label">MICROSERVICES</p>
+                </div>
+                <div class="class-card grainy eco-card">
+                    <h4 class="eco-name">OPENAI</h4>
+                    <p class="eco-label">AI INTEGRATION</p>
+                </div>
+                <div class="class-card grainy eco-card">
+                    <h4 class="eco-name">NODE</h4>
+                    <p class="eco-label">SCALABLE JS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ─── SECURITY & COMPLIANCE ───────────────────── -->
+    <section class="section-services grainy" id="compliance" style="background:var(--ink); color:var(--cream); padding-top:6rem; border-top:4px solid var(--clay);">
+        <div class="ghost-bg ghost-impact" style="top:30%; opacity:0.03;">SECURE</div>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">✦ Enterprise Integrity</p>
+                <h2 class="section-title title-light">SECURITY <span class="accent">STANDARDS</span></h2>
+            </div>
+            <div class="grid-why" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:2rem;">
+                <div class="class-card grainy" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); padding:2rem; text-align:center;">
+                    <i data-lucide="shield-check" style="width:40px; height:40px; color:var(--clay); margin-bottom:1rem;"></i>
+                    <h4 style="font-family:'Unbounded', sans-serif; font-size:0.9rem; margin-bottom:0.5rem;">ISO 27001</h4>
+                    <p style="font-size:0.75rem; opacity:0.6;">Global certification for information security management.</p>
+                </div>
+                <div class="class-card grainy" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); padding:2rem; text-align:center;">
+                    <i data-lucide="lock" style="width:40px; height:40px; color:var(--clay); margin-bottom:1rem;"></i>
+                    <h4 style="font-family:'Unbounded', sans-serif; font-size:0.9rem; margin-bottom:0.5rem;">SOC2 TYPE II</h4>
+                    <p style="font-size:0.75rem; opacity:0.6;">Rigorous auditing for security, availability, and privacy.</p>
+                </div>
+                <div class="class-card grainy" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); padding:2rem; text-align:center;">
+                    <i data-lucide="server" style="width:40px; height:40px; color:var(--clay); margin-bottom:1rem;"></i>
+                    <h4 style="font-family:'Unbounded', sans-serif; font-size:0.9rem; margin-bottom:0.5rem;">GDPR READY</h4>
+                    <p style="font-size:0.75rem; opacity:0.6;">Full compliance with international data protection laws.</p>
+                </div>
+                <div class="class-card grainy" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); padding:2rem; text-align:center;">
+                    <i data-lucide="activity" style="width:40px; height:40px; color:var(--clay); margin-bottom:1rem;"></i>
+                    <h4 style="font-family:'Unbounded', sans-serif; font-size:0.9rem; margin-bottom:0.5rem;">HIPAA</h4>
+                    <p style="font-size:0.75rem; opacity:0.6;">Healthcare-grade data encryption and management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── GLOBAL NETWORK HUBS ────────────────────── -->
+    <section class="section-vibes grainy" id="hubs" style="background:var(--ink); padding-top:10rem; padding-bottom:10rem;">
+        <div class="ghost-bg" style="font-size:clamp(5rem,18vw,16rem); opacity:0.02; color:var(--clay);">NETWORK</div>
+        <div class="container">
+            <div class="grid-about" style="display:grid; grid-template-columns:1fr 1.2fr; gap:6rem; align-items:center;">
+                <div>
+                    <p class="section-label" style="color:var(--clay);">✦ Global Footprint</p>
+                    <h2 class="section-title title-light">DISTRIBUTED <span class="accent">INTELLIGENCE</span></h2>
+                    <p class="desc-dim" style="margin-bottom:3rem;">Our network spans across 24 global regions, ensuring sub-10ms latency for 98% of the world's digital population. We operate tier-4 data facilities in key strategic hubs.</p>
+                    <div class="hubs-stats-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+                        <div class="reveal">
+                            <h3 style="font-family:'Unbounded', sans-serif; color:var(--clay); font-size:2rem; margin-bottom:0.5rem;">24</h3>
+                            <p style="font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; opacity:0.5; color:var(--cream);">Edge Regions</p>
+                        </div>
+                        <div class="reveal">
+                            <h3 style="font-family:'Unbounded', sans-serif; color:var(--clay); font-size:2rem; margin-bottom:0.5rem;">99.9%</h3>
+                            <p style="font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; opacity:0.5; color:var(--cream);">Uptime Record</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="class-card grainy" style="aspect-ratio:16/9; background:#000; border:4px solid var(--ink); position:relative; overflow:hidden; border-radius:10px; box-shadow:0 0 50px rgba(0, 210, 255, 0.1);">
+                        <img src="./Images/hero-4.webp" alt="Data Center" style="width:100%; height:100%; object-fit:cover; opacity:0.6;">
+                        <div style="position:absolute; inset:0; background:radial-gradient(circle, transparent 20%, var(--ink) 100%);"></div>
+                        <div style="position:absolute; bottom:20px; left:20px; color:var(--cream); font-family:'Space Mono', monospace; font-size:0.6rem;">
+                            ◉ NODE_STATION // SILICON VALLEY [37.33 N, 121.88 W]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── TESTIMONIALS ──────────────────────────────── -->
+    <section class="section-vibes grainy section-testimony" id="testimony">
+        <div class="ghost-bg ghost-love">LOVE</div>
+        <div class="container">
+            <div class="section-header header-center">
+                <p class="section-label">✦ Client Voices</p>
+                <h2 class="section-title title-light">GLOBAL <span class="accent">PARTNERSHIPS</span></h2>
+            </div>
+            <div class="quotes-grid">
+                <div class="quote-card">
+                    <p>"STACKLY didn't just rebuild our app; they redefined our entire approach to scalability. Our throughput is up 400%."</p>
+                    <div class="quote-author">
+                        <h4>DAVID CHEN</h4>
+                        <p>CTO // NEXUS FINTECH</p>
+                    </div>
+                </div>
+                <div class="quote-card">
+                    <p>"Professional, high-performance, and secure. STACKLY is the only choice for mission-critical IT infrastructure."</p>
+                    <div class="quote-author">
+                        <h4>SARAH JENKINS</h4>
+                        <p>COO // GLOBAL LOGISTICS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── SUBSCRIBE ─────────────────────────────────── -->
+    <section class="section-subscribe grainy" id="subscribe">
+        <div class="ghost-bg" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(6rem,16vw,15rem);opacity:0.05;">SECURE</div>
+        <div class="subscribe-inner">
+            <p class="section-label" style="margin-bottom:1rem;">✦ Technology Newsletter</p>
+            <h2 class="section-title">
+                SUBSCRIBE<br><span style="-webkit-text-stroke:3px var(--ink);color:transparent;">TO INSIGHTS</span>
+            </h2>
+            <p>Join our network of 50,000+ professionals. We'll send you IT best practices, cloud architecture updates, and security bulletins.</p>
+
+            <div class="subscribe-tags">
+                <span class="tag-chip">★ Architecture</span>
+                <span class="tag-chip">◆ Software</span>
+                <span class="tag-chip">🛡️ Security</span>
+                <span class="tag-chip">∞ Managed OPS</span>
+            </div>
+
+            <div class="subscribe-form" id="subForm">
+                <input type="email" id="emailInput" placeholder="executive@company.com" autocomplete="off">
+                <button type="button" id="subBtn">Secure Access →</button>
+            </div>
+            <div class="success-msg" id="successMsg">
+                ✦ Welcome to STACKLY Networks. Stay Secure. 🛡️
+            </div>
+            <p class="subscribe-note">// All unlinked buttons redirect to our <a href="./pages/error.html" style="color:var(--ink)">Error Management Portal</a>.</p>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ───────────────────────────────────── -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div>
+                <p>Innovative technology solutions for next-generation enterprises. We provide the infrastructure for the digital leaders of tomorrow.</p>
+                <div style="margin-top:1.5rem;">
+                    <a href="404.html" class="codepen-link">
+                        <i data-lucide="shield-check"></i>
+                        ◉ Trusted Solutions Partner
+                    </a>
+                </div>
+                <div class="footer-social" style="margin-top:2rem; display:flex; gap:1.2rem;">
+                    <a href="404.html" class="social-icon-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="404.html" class="social-icon-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="404.html" class="social-icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="404.html" class="social-icon-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>✦ Solutions</h4>
+                <a href="404.html">Cloud Systems</a>
+                <a href="404.html">Custom Software</a>
+                <a href="404.html">Cyber Security</a>
+                <a href="404.html">AI & ML</a>
+                <a href="404.html">Enterprise IT</a>
+                <a href="404.html">Consultancy</a>
+            </div>
+            <div class="footer-col">
+                <h4>◆ Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 STACKLY Technology Solutions // All rights reserved // Built for Tomorrow</p>
+        </div>
+    </footer>
+    <!-- Scroll to Top -->
+    <button id="scroll-to-top" style="position:fixed; bottom:30px; right:30px; width:50px; height:50px; border-radius:50%; background:var(--clay); border:2px solid var(--ink); box-shadow:5px 5px 0 var(--ink); cursor:crosshair; z-index:90; display:none;">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+        // Simple scroll to top
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                document.getElementById("scroll-to-top").style.display = "block";
+            } else {
+                document.getElementById("scroll-to-top").style.display = "none";
+            }
+        };
+        document.getElementById("scroll-to-top").onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        /* ── SCROLL SECTION FLOW ANIMATION ── */
+        (function() {
+            const path = document.querySelector('.anim-overview-stroke');
+            const section = document.getElementById('scroll-section');
+            if (!path || !section) return;
+            const totalDash = 5414.29;
+
+            function tick() {
+                const rect = section.getBoundingClientRect();
+                const sectionH = section.offsetHeight;
+                const vH = window.innerHeight;
+                // 0 = section top enters viewport bottom; 1 = section bottom at viewport bottom
+                const entered = vH - rect.top;
+                const progress = Math.min(Math.max(entered / sectionH, 0), 1);
+                path.style.setProperty('stroke-dashoffset', totalDash * (1 - progress), 'important');
+                requestAnimationFrame(tick);
+            }
+
+            requestAnimationFrame(tick);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STACKLY | Login</title>
+  <link rel="icon" type="image/webp" href="./Images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── AUTH PAGE ── */
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px; /* nav height offset */
+    }
+
+    /* ── LEFT PANEL ── */
+    .auth-panel-left {
+      background: var(--ink);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4rem 3.5rem;
+      overflow: hidden;
+      border-right: 4px solid var(--clay);
+    }
+    .auth-panel-left::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    .auth-panel-left > * { position: relative; z-index: 1; }
+
+    /* decorative grid lines */
+    .auth-panel-left::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,210,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,210,255,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .left-tagline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #fff;
+      overflow: hidden;
+    }
+    .left-tagline .accent { color: var(--clay); display: block; }
+    .left-tagline .stroke {
+      display: block;
+      -webkit-text-stroke: 2px var(--clay);
+      color: transparent;
+    }
+
+    .left-badge {
+      display: inline-block;
+      background: var(--clay);
+      color: var(--ink);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border: 2px solid var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .left-features {
+      list-style: none;
+      margin-top: 3rem;
+    }
+    .left-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: rgba(240,244,248,0.75);
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(0,210,255,0.1);
+    }
+    .left-features li:last-child { border-bottom: none; }
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(0,210,255,0.12);
+      border: 1px solid rgba(0,210,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-icon svg { width: 15px; height: 15px; stroke: var(--clay); }
+
+    .left-footer-text {
+      font-size: 0.65rem;
+      color: rgba(240,244,248,0.35);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── RIGHT PANEL (FORM) ── */
+    .auth-panel-right {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2.5rem;
+    }
+
+    .auth-form-wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .form-heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .form-heading span { color: var(--clay); }
+
+    .form-sub {
+      font-size: 0.78rem;
+      color: rgba(10,25,47,0.55);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .form-sub a {
+      color: var(--amber);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .form-sub a:hover { color: var(--clay); }
+
+    /* ── FIELD ── */
+    .field-group {
+      margin-bottom: 1.25rem;
+    }
+    .field-group label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .field-wrap {
+      position: relative;
+    }
+    .field-wrap .field-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .field-wrap .field-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: rgba(10,25,47,0.4);
+    }
+    .field-wrap input, .field-wrap select {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.6rem;
+      background: #fff;
+      border: 2px solid var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+    .field-wrap select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 2.5rem;
+    }
+    .field-wrap input:focus, .field-wrap select:focus {
+      border-color: var(--clay);
+      box-shadow: 4px 4px 0 var(--clay);
+    }
+    .field-wrap input::placeholder { color: rgba(10,25,47,0.3); }
+
+    /* password toggle */
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: rgba(10,25,47,0.4);
+      transition: color 0.15s;
+    }
+    .toggle-pw:hover { color: var(--clay); }
+    .toggle-pw svg { width: 16px; height: 16px; }
+
+    /* ── REMEMBER / FORGOT ── */
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .remember-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .remember-wrap input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      border: 2px solid var(--ink);
+      appearance: none;
+      -webkit-appearance: none;
+      background: #fff;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .remember-wrap input[type="checkbox"]:checked {
+      background: var(--ink);
+    }
+    .remember-wrap input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 0px;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+    .forgot-link {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .forgot-link:hover { color: var(--clay); }
+
+    /* ── SUBMIT ── */
+    .btn-auth {
+      width: 100%;
+      background: var(--ink);
+      color: var(--cream);
+      border: 3px solid var(--ink);
+      padding: 0.9rem 2rem;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      box-shadow: 5px 5px 0 var(--clay);
+      transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .btn-auth:hover {
+      background: var(--clay);
+      border-color: var(--clay);
+      color: var(--ink);
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    .btn-auth svg { width: 15px; height: 15px; }
+
+    /* ── DIVIDER ── */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.75rem 0;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(10,25,47,0.35);
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background: var(--ink);
+      opacity: 0.12;
+    }
+
+    /* ── SOCIAL BUTTONS ── */
+    .social-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .btn-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1rem;
+      border: 2px solid var(--ink);
+      background: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.12s, box-shadow 0.12s;
+      box-shadow: 3px 3px 0 var(--ink);
+      text-decoration: none;
+    }
+    .btn-social:hover {
+      background: var(--cream);
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .btn-social i { font-size: 0.9rem; }
+    .btn-social .google-icon { color: #EA4335; }
+    .btn-social .github-icon { color: #181717; }
+
+    /* ── SWITCH LINK ── */
+    .switch-link {
+      text-align: center;
+      font-size: 0.72rem;
+      margin-top: 2rem;
+      color: rgba(10,25,47,0.55);
+    }
+    .switch-link a {
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 2px solid var(--clay);
+      padding-bottom: 1px;
+      transition: color 0.15s;
+    }
+    .switch-link a:hover { color: var(--clay); }
+
+    /* ── ERROR STATE ── */
+    .field-wrap input.error {
+      border-color: var(--pink);
+      box-shadow: 4px 4px 0 var(--pink);
+    }
+    .field-error {
+      font-size: 0.65rem;
+      color: var(--pink);
+      margin-top: 0.35rem;
+      display: none;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .field-error.show { display: block; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .auth-page {
+        grid-template-columns: 1fr;
+        padding-top: 65px;
+      }
+      .auth-panel-left {
+        border-right: none;
+        border-bottom: 4px solid var(--clay);
+        padding: 2.5rem 1.5rem;
+        min-height: auto;
+      }
+      .left-tagline { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .left-features { margin-top: 1.5rem; }
+      .left-features li { padding: 0.6rem 0; }
+      .left-footer-text { display: none; }
+      .auth-panel-right {
+        padding: 2.5rem 1.5rem;
+      }
+      .social-btns { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .auth-panel-left { padding: 2rem 1.2rem; }
+      .auth-panel-right { padding: 2rem 1.2rem; }
+      .form-heading { font-size: 1.6rem; }
+    }
+
+    /* ── ENTRANCE ANIMATION ── */
+    .auth-form-wrap {
+      animation: authFadeUp 0.5s ease both;
+    }
+    @keyframes authFadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .auth-panel-left .left-tagline {
+      animation: authFadeUp 0.45s 0.1s ease both;
+    }
+  </style>
+</head>
+<body class="grainy">
+    <!-- ─── STACKLY PRELOADER ──────────────────────── -->
+    <div id="stackly-preloader">
+        <div class="preloader-glitch" data-text="STACKLY">STACKLY</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+        <div class="preloader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="index.html">
+      <div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" style="color:var(--clay)">Login</a>
+    </div>
+    <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── AUTH PAGE ── -->
+  <main class="auth-page">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-panel-left">
+      <div>
+        <div class="left-badge">Welcome Back</div>
+        <h1 class="left-tagline">
+          <span class="accent">ACCESS</span>
+          <span>YOUR</span>
+          <span class="stroke">STACK</span>
+        </h1>
+        <ul class="left-features">
+          <li>
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Enterprise-grade security &amp; SSO support
+          </li>
+          <li>
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            Real-time dashboard &amp; analytics
+          </li>
+          <li>
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            Team collaboration &amp; role management
+          </li>
+          <li>
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            99.9% uptime SLA guarantee
+          </li>
+        </ul>
+      </div>
+      <p class="left-footer-text">© 2025 STACKLY · Secure Login</p>
+    </div>
+
+    <!-- RIGHT PANEL (FORM) -->
+    <div class="auth-panel-right">
+      <div class="auth-form-wrap">
+        <h2 class="form-heading">Sign <span>In</span></h2>
+        <p class="form-sub">
+          Don't have an account?
+          <a href="signup.html">Create one →</a>
+        </p>
+
+        <form id="loginForm" novalidate>
+
+          <div class="field-group">
+            <label for="loginRole">Access Portal</label>
+            <div class="field-wrap">
+              <span class="field-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <select id="loginRole">
+                <option value="client">USER</option>
+                <option value="admin">ADMIN</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="loginEmail">Email Address</label>
+            <div class="field-wrap">
+              <span class="field-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke-width="2"/><path d="m2 7 10 7 10-7" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <input type="email" id="loginEmail" placeholder="you@company.com" autocomplete="email">
+            </div>
+            <span class="field-error" id="emailErr">Enter a valid email address.</span>
+          </div>
+
+          <div class="field-group">
+            <label for="loginPassword">Password</label>
+            <div class="field-wrap">
+              <span class="field-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+              <button type="button" class="toggle-pw" id="togglePw" aria-label="Show/hide password">
+                <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
+              </button>
+            </div>
+            <span class="field-error" id="passErr">Password is required.</span>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-wrap">
+              <input type="checkbox" id="rememberMe">
+              Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-auth" id="loginBtn">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10 17 15 12 10 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="15" y1="12" x2="3" y2="12" stroke-width="2" stroke-linecap="round"/></svg>
+            Sign In to Dashboard
+          </button>
+        </form>
+
+        <div class="auth-divider">or continue with</div>
+
+        <div class="social-btns">
+          <a href="#" class="btn-social">
+            <i class="fab fa-google google-icon"></i> Google
+          </a>
+          <a href="#" class="btn-social">
+            <i class="fab fa-github github-icon"></i> GitHub
+          </a>
+        </div>
+
+        <p class="switch-link">
+          New to STACKLY? <a href="signup.html">Create your account</a>
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    /* ── NAV TOGGLE ── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.getElementById('navToggle');
+      const nav = document.querySelector('nav');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          nav.classList.toggle('nav-open');
+        });
+        document.addEventListener('click', (e) => {
+          if (nav.classList.contains('nav-open') && !nav.contains(e.target)) {
+            nav.classList.remove('nav-open');
+          }
+        });
+      }
+    });
+
+    /* ── PASSWORD TOGGLE ── */
+    const togglePw = document.getElementById('togglePw');
+    const pwInput  = document.getElementById('loginPassword');
+    const eyeIcon  = document.getElementById('eyeIcon');
+
+    const eyeOpen   = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/>`;
+    const eyeClosed = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="1" x2="23" y2="23" stroke-width="2" stroke-linecap="round"/>`;
+
+    if (togglePw) {
+      togglePw.addEventListener('click', () => {
+        const isPass = pwInput.type === 'password';
+        pwInput.type = isPass ? 'text' : 'password';
+        eyeIcon.innerHTML = isPass ? eyeClosed : eyeOpen;
+      });
+    }
+
+    /* ── FORM VALIDATION ── */
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      const email = document.getElementById('loginEmail');
+      const pass  = document.getElementById('loginPassword');
+      const emailErr = document.getElementById('emailErr');
+      const passErr  = document.getElementById('passErr');
+
+      // reset
+      [email, pass].forEach(i => i.classList.remove('error'));
+      [emailErr, passErr].forEach(er => er.classList.remove('show'));
+
+      if (!email.value.trim() || !email.value.includes('@')) {
+        email.classList.add('error');
+        emailErr.classList.add('show');
+        valid = false;
+      }
+      if (!pass.value.trim()) {
+        pass.classList.add('error');
+        passErr.classList.add('show');
+        valid = false;
+      }
+
+      if (valid) {
+        const btn = document.getElementById('loginBtn');
+        const role = document.getElementById('loginRole').value;
+        const emailValue = email.value.trim();
+        
+        // Save user to local storage
+        localStorage.setItem('stacklyUser', emailValue);
+        
+        btn.textContent = 'Signing In…';
+        btn.style.opacity = '0.7';
+        btn.disabled = true;
+
+        // Redirect based on role
+        setTimeout(() => {
+          if (role === 'admin') {
+            window.location.href = 'admin-dashboard.html';
+          } else {
+            window.location.href = 'user-dashboard.html';
+          }
+        }, 1200);
+      }
+    });
+
+    /* ── LUCIDE ── */
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STACKLY | About Us</title>
+  <link rel="icon" type="image/webp" href="./Images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @keyframes slideDown { from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes slideUp   { from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeIn    { from{opacity:0;}to{opacity:1;} }
+    @keyframes drawLine  { from{transform:scaleX(0);}to{transform:scaleX(1);} }
+    @keyframes ticker-scroll { from{transform:translateX(0);}to{transform:translateX(-50%);} }
+
+    .abt-hero {
+      min-height: auto;
+      background: var(--ink) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 2.5rem 3rem;
+      border-bottom: 4px solid var(--clay);
+      position: relative;
+      overflow: hidden;
+    }
+    .abt-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url('./Images/hero-4.webp');
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      opacity:0.2;
+      z-index:0;
+      pointer-events:none;
+    }
+    .abt-hero > * { position:relative; z-index:2; }
+    .abt-hero-bg-text {
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(6rem,20vw,18rem);
+      font-weight:900;
+      color:var(--cream);
+      opacity:0.03;
+      pointer-events:none;
+      white-space:nowrap;
+    }
+    .abt-chip {
+      display:inline-block;
+      border:2px solid var(--ink);
+      background:var(--clay);
+      color:#fff;
+      padding:3px 14px;
+      font-size:0.65rem;
+      font-weight:700;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      margin-bottom:1.5rem;
+      animation:slideDown 0.6s ease both;
+    }
+    .abt-hero h1 {
+      font-family:'Unbounded',sans-serif;
+      font-size: clamp(1.8rem,9vw,8rem);
+      font-weight:900;
+      line-height:0.92;
+      letter-spacing:-0.03em;
+      overflow: hidden;
+    }
+    .abt-hero h1 .stroke {
+      display:block;
+      -webkit-text-stroke:3px var(--cream);
+      color:transparent;
+    }
+    .abt-hero h1 .fill { display:block; color:var(--cream); }
+    .abt-hero h1 .clay { display:block; color:var(--clay); }
+
+    .abt-hero-sub {
+      font-size:0.9rem;
+      line-height:1.8;
+      max-width:520px;
+      opacity:0.7;
+      margin-top:1rem;
+      animation:slideUp 0.7s 0.25s ease both;
+      color:var(--cream);
+    }
+    .abt-actions { animation:slideUp 0.7s 0.4s ease both; display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap; }
+
+    /* ── TICKER ── */
+    .abt-ticker {
+      background:var(--ink);
+      border-top:3px solid var(--clay);
+      border-bottom:3px solid var(--clay);
+      padding:0.7rem 0;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+    .abt-ticker-inner { display:inline-flex;gap:3rem;animation:ticker-scroll 28s linear infinite; }
+    .abt-ticker-item { font-family:'Unbounded',sans-serif;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--clay); }
+
+    /* ── SECTION BASE ── */
+    .abt-section {
+      padding:7rem 2.5rem;
+      position:relative;
+    }
+    .section-label { font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--clay);font-weight:700;margin-bottom:0.8rem; }
+    .section-title {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(2rem,5vw,4rem);
+      font-weight:900;
+      line-height:1;
+      letter-spacing:-0.03em;
+    }
+    .section-title span { color:var(--clay); }
+
+    /* ── STORY ── */
+    .abt-story { background:var(--cream);border-bottom:4px solid var(--ink); }
+    .story-layout {
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:4rem;
+      margin-top:4rem;
+      align-items:center;
+    }
+    .story-img-wrap {
+      position:relative;
+      border:3px solid var(--ink);
+      box-shadow:10px 10px 0 var(--clay);
+      overflow:hidden;
+    }
+    .story-img-wrap img { width:100%; display:block; filter:saturate(0.8); }
+    .story-text p { font-size:0.88rem;line-height:1.9;opacity:0.75;margin-bottom:1.2rem; }
+    .story-highlight {
+      border-left:4px solid var(--clay);
+      padding: 1.2rem 1.5rem;
+      background:var(--ink);
+      color:var(--cream);
+      font-family:'Unbounded',sans-serif;
+      font-size:0.95rem;
+      font-weight:700;
+      line-height:1.4;
+      margin:2rem 0;
+    }
+    .story-stats {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      border:3px solid var(--ink);
+    }
+    .story-stat {
+      padding:2.5rem 2rem;
+      border:1px solid rgba(10,25,47,0.1);
+      position:relative;
+      overflow:hidden;
+      cursor:default;
+      transition:background 0.2s;
+    }
+    .story-stat:hover { background:var(--clay); }
+    .story-stat:hover .stat-n { color:var(--ink); }
+    .story-stat:hover .stat-l { color:var(--ink); opacity:0.7; }
+    .stat-n {
+      font-family:'Unbounded',sans-serif;
+      font-size:2.5rem;
+      font-weight:900;
+      color:var(--clay);
+      display:block;
+      transition:color 0.2s;
+    }
+    .stat-l { font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;color:var(--ink);transition:color 0.2s; }
+
+    /* ── VALUES ── */
+    .abt-values { background:var(--ink);border-bottom:4px solid var(--clay); }
+    .abt-values .section-title { color:var(--cream); }
+    .values-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:0;
+      margin-top:4rem;
+      border:3px solid rgba(0,210,255,0.2);
+    }
+    .value-card {
+      padding:3rem 2.5rem;
+      border-right:1px solid rgba(0,210,255,0.12);
+      border-bottom:1px solid rgba(0,210,255,0.12);
+      position:relative;
+      overflow:hidden;
+      cursor:default;
+      transition:background 0.25s;
+    }
+    .value-card::before {
+      content:"";
+      position:absolute;
+      bottom:0;left:0;right:0;
+      height:3px;
+      background:var(--clay);
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform 0.35s cubic-bezier(0.2,1,0.3,1);
+    }
+    .value-card:hover::before { transform:scaleX(1); }
+    .value-card:hover { background:rgba(0,210,255,0.06); }
+    .value-icon { color:var(--clay);margin-bottom:1.5rem; }
+    .value-icon svg { width:32px;height:32px;stroke:currentColor;stroke-width:1.5;fill:none; }
+    .value-title { font-family:'Unbounded',sans-serif;font-size:0.85rem;font-weight:900;color:var(--cream);margin-bottom:0.7rem; }
+    .value-desc { font-size:0.78rem;line-height:1.75;color:rgba(240,244,248,0.5); }
+
+    /* ── TEAM ── */
+    .abt-team { background:var(--cream);border-bottom:4px solid var(--ink); }
+    .team-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:0;
+      margin-top:4rem;
+      border:3px solid var(--ink);
+    }
+    .team-card {
+      padding:2.5rem 2rem;
+      border:1px solid rgba(10,25,47,0.1);
+      position:relative;
+      overflow:hidden;
+      cursor:default;
+      transition:background 0.25s;
+    }
+    .team-card:hover { background:var(--ink); }
+    .team-card:hover .team-name { color:var(--cream); }
+    .team-card:hover .team-role { color:var(--clay); }
+    .team-card:hover .team-bio { color:rgba(240,244,248,0.6); }
+    .team-avatar {
+      width:64px;height:64px;
+      border:3px solid var(--ink);
+      border-radius:0;
+      background:var(--clay);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Unbounded',sans-serif;
+      font-size:1.3rem;
+      font-weight:900;
+      color:#fff;
+      margin-bottom:1.5rem;
+      transition:background 0.2s, border-color 0.2s;
+    }
+    .team-card:hover .team-avatar { background:var(--clay);border-color:var(--clay); }
+    .team-name { font-family:'Unbounded',sans-serif;font-size:0.85rem;font-weight:900;color:var(--ink);margin-bottom:0.3rem;transition:color 0.2s; }
+    .team-role { font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--clay);margin-bottom:0.9rem; }
+    .team-bio { font-size:0.78rem;line-height:1.7;opacity:0.6;color:var(--ink);transition:color 0.2s; }
+
+    /* ── TIMELINE ── */
+    .abt-timeline { background:var(--ink);border-bottom:4px solid var(--clay);padding:7rem 2.5rem; }
+    .abt-timeline .section-title { color:var(--cream); }
+    .timeline-list { margin-top:4rem;position:relative; }
+    .timeline-list::before {
+      content:"";
+      position:absolute;
+      left:0;top:0;bottom:0;
+      width:3px;
+      background:var(--clay);
+    }
+    .tl-item {
+      padding:0 0 3.5rem 3rem;
+      position:relative;
+      cursor:default;
+    }
+    .tl-item::before {
+      content:"";
+      position:absolute;
+      left:-6px;top:0;
+      width:15px;height:15px;
+      background:var(--clay);
+      border:3px solid var(--ink);
+      transform:rotate(45deg);
+      transition:background 0.2s, transform 0.3s;
+    }
+    .tl-item:hover::before { background:var(--cream);transform:rotate(45deg) scale(1.3); }
+    .tl-year {
+      font-family:'Unbounded',sans-serif;
+      font-size:0.65rem;
+      font-weight:900;
+      letter-spacing:0.15em;
+      color:var(--clay);
+      margin-bottom:0.5rem;
+    }
+    .tl-title { font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:900;color:var(--cream);margin-bottom:0.5rem; }
+    .tl-desc { font-size:0.82rem;line-height:1.75;color:rgba(240,244,248,0.55); }
+
+    /* ── CTA ── */
+    .abt-cta {
+      padding:6rem 2.5rem;
+      background:var(--clay);
+      border-bottom:4px solid var(--ink);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:2rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .abt-cta::before {
+      content:"US";
+      position:absolute;right:2rem;top:50%;
+      transform:translateY(-50%);
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(5rem,14vw,13rem);
+      font-weight:900;
+      color:rgba(10,25,47,0.07);
+      pointer-events:none;
+    }
+    .abt-cta h2 { font-family:'Unbounded',sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--ink);line-height:1.05; }
+    .abt-cta p { font-size:0.85rem;color:rgba(10,25,47,0.7);margin-top:0.8rem; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal.active { opacity:1;transform:translateY(0); }
+    .reveal-left { opacity:0;transform:translateX(-40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-left.active { opacity:1;transform:translateX(0); }
+    .reveal-right { opacity:0;transform:translateX(40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-right.active { opacity:1;transform:translateX(0); }
+
+    @media(max-width:768px) {
+      .abt-hero { padding:7rem 1.2rem 4rem; }
+      .abt-section,.abt-values,.abt-team,.abt-timeline { padding:4rem 1.2rem; }
+      .story-layout { grid-template-columns:1fr; gap:2.5rem; }
+      .abt-cta { padding:4rem 1.2rem;flex-direction:column; }
+    }
+  </style>
+</head>
+<body class="grainy">
+    <!-- ─── STACKLY PRELOADER ──────────────────────── -->
+    <div id="stackly-preloader">
+        <div class="preloader-glitch" data-text="STACKLY">STACKLY</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+        <div class="preloader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html"><div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" style="color:var(--clay)">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+    <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <section class="abt-hero">
+    <div class="abt-hero-bg-text">ABOUT</div>
+    <div class="abt-chip">✦ Who We Are</div>
+    <h1>
+      <span class="fill">BUILT BY</span>
+      <span class="stroke">BUILDERS</span>
+      <span class="clay">FOR BUILDERS.</span>
+    </h1>
+    <p class="abt-hero-sub">STACKLY was founded by engineers who got tired of watching enterprises struggle with bad infrastructure and bloated software. So we started building better.</p>
+    <div class="abt-actions">
+      <a href="contact.html" class="btn-primary">Work With Us →</a>
+      <a href="#story" class="btn-ghost">Our Story ↓</a>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="abt-ticker">
+    <div class="abt-ticker-inner">
+      <span class="abt-ticker-item">★ FOUNDED 2024</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">COIMBATORE → GLOBAL</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">120+ PROJECTS</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">TEAM OF 30+</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">12 INDUSTRIES</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">★ FOUNDED 2024</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">COIMBATORE → GLOBAL</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">120+ PROJECTS</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">TEAM OF 30+</span><span style="opacity:.35;color:var(--clay)">◆</span>
+      <span class="abt-ticker-item">12 INDUSTRIES</span><span style="opacity:.35;color:var(--clay)">◆</span>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="abt-section abt-story" id="story">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="section-label">— Our Origin</div>
+        <h2 class="section-title">THE <span>STORY</span></h2>
+      </div>
+      <div class="story-layout">
+        <div class="story-img-wrap reveal-left">
+          <img src="./Images/team.webp" alt="Engineering Team">
+        </div>
+        <div class="story-text reveal-right">
+          <p>It started in a co-working space in Coimbatore with three engineers, a whiteboard, and a shared frustration: enterprise software was too slow, too expensive, and too disconnected from real business needs.</p>
+          <p>Instead of months-long waterfall projects that delivered yesterday's solutions to tomorrow's problems, we built STACKLY around a single principle — ship fast, iterate faster, never compromise on quality.</p>
+          <div class="story-highlight">"Great infrastructure shouldn't be a luxury. It should be the baseline."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="abt-section abt-values">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="section-label">— What We Stand For</div>
+        <h2 class="section-title">OUR <span>VALUES</span></h2>
+      </div>
+      <div class="values-grid reveal">
+        <div class="value-card">
+          <div class="value-icon"><i data-lucide="zap"></i></div>
+          <div class="value-title">Ship Fast</div>
+          <div class="value-desc">Speed isn't recklessness — it's respect for your time and money. We move with purpose and deliver without delay.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i data-lucide="shield-check"></i></div>
+          <div class="value-title">Never Compromise</div>
+          <div class="value-desc">Fast and cheap never means cutting corners. Our code is tested, documented, and built to last.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i data-lucide="users"></i></div>
+          <div class="value-title">Radical Transparency</div>
+          <div class="value-desc">No hidden costs, no opaque timelines. You get direct access to our team and live visibility into every sprint.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i data-lucide="trending-up"></i></div>
+          <div class="value-title">Always Growing</div>
+          <div class="value-desc">We invest 20% of our time in R&D so your tech stack is never outdated. Continuous learning isn't optional — it's culture.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="abt-section abt-team">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="section-label">— The People</div>
+        <h2 class="section-title">MEET THE <span>TEAM</span></h2>
+      </div>
+      <div class="team-grid reveal">
+        <div class="team-card">
+          <div class="team-avatar">AK</div>
+          <div class="team-name">Arjun Kumar</div>
+          <div class="team-role">CEO & Co-Founder</div>
+          <div class="team-bio">10+ years in enterprise architecture. Former AWS Solutions Architect. Believes good systems are invisible.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">SR</div>
+          <div class="team-name">Shreya Rajan</div>
+          <div class="team-role">CTO & Co-Founder</div>
+          <div class="team-bio">Machine learning researcher turned full-stack engineer. PhD from IIT Madras. Obsessed with performance.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">PM</div>
+          <div class="team-name">Priya Mani</div>
+          <div class="team-role">Head of DevOps</div>
+          <div class="team-bio">Kubernetes certified. Has automated more pipelines than she can count. Hates manual deployments with a passion.</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">VN</div>
+          <div class="team-name">Vikram Nair</div>
+          <div class="team-role">Lead Security Engineer</div>
+          <div class="team-bio">Former CERT-In consultant. Zero-trust advocate. Finds bugs before attackers do.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="abt-timeline">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="section-label">— Our Journey</div>
+        <h2 class="section-title" style="color:var(--cream)">HOW WE <span>GOT HERE</span></h2>
+      </div>
+      <div class="timeline-list" style="max-width:680px;margin-top:4rem;">
+        <div class="tl-item reveal">
+          <div class="tl-year">2024 Q1</div>
+          <div class="tl-title">Founded in Coimbatore</div>
+          <div class="tl-desc">Three engineers, one shared office, and a conviction that enterprise IT could be radically better. STACKLY is incorporated.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-year">2024 Q2</div>
+          <div class="tl-title">First Enterprise Client</div>
+          <div class="tl-desc">Landed our first Fortune 500 client — a logistics conglomerate needing cloud migration. Delivered in 6 weeks.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-year">2024 Q3</div>
+          <div class="tl-title">Team Grows to 15</div>
+          <div class="tl-desc">Expanded with senior hires across AI/ML, security, and front-end. Opened our first dedicated engineering floor.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-year">2024 Q4</div>
+          <div class="tl-title">100-Project Milestone</div>
+          <div class="tl-desc">Crossed 100 delivered projects. Zero critical outages. Launched our 24/7 SRE support tier for enterprise clients.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-year">2025</div>
+          <div class="tl-title">Going Global</div>
+          <div class="tl-desc">Serving clients in 8 countries. New AI/ML division launched. Building the next chapter of STACKLY.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="abt-cta">
+    <div class="reveal-left">
+      <h2>JOIN THE<br>MISSION.</h2>
+      <p>We're hiring. Check out open roles or just say hello.</p>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2;">
+      <a href="contact.html" class="btn-primary" style="background:var(--ink);border-color:var(--ink);color:var(--cream);">Start a Conversation →</a>
+      <a href="services.html" class="btn-ghost" style="border-color:var(--ink);color:var(--ink);">See Our Work</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-compact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div>
+        <p>Innovative technology solutions for next-generation enterprises. We provide the infrastructure for the digital leaders of tomorrow.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="404.html" class="codepen-link">
+            <i data-lucide="shield-check"></i>
+            ◉ Trusted Solutions Partner
+          </a>
+        </div>
+        <div class="footer-social" style="margin-top:2rem; display:flex; gap:1.2rem;">
+          <a href="404.html" class="social-icon-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="404.html" class="social-icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="404.html" class="social-icon-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>✦ Solutions</h4>
+        <a href="404.html">Cloud Systems</a>
+        <a href="404.html">Custom Software</a>
+        <a href="404.html">Cyber Security</a>
+        <a href="404.html">AI &amp; ML</a>
+        <a href="404.html">Enterprise IT</a>
+        <a href="404.html">Consultancy</a>
+      </div>
+      <div class="footer-col">
+        <h4>◆ Company</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 STACKLY. All rights reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

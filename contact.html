@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STACKLY | Contact</title>
+  <link rel="icon" type="image/webp" href="./Images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @keyframes slideDown  { from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes slideUp    { from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes blink      { 0%,100%{opacity:1;}50%{opacity:0;} }
+    @keyframes pulse-ring { 0%{transform:scale(1);opacity:0.6;} 100%{transform:scale(1.8);opacity:0;} }
+    @keyframes ticker-scroll { from{transform:translateX(0);}to{transform:translateX(-50%);} }
+
+    /* ── HERO ── */
+    .cnt-hero {
+      min-height: auto;
+      background: var(--ink) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 2.5rem 3rem;
+      border-bottom: 4px solid var(--clay);
+      position: relative;
+      overflow: hidden;
+    }
+    .cnt-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url('./Images/hero-3.webp');
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      opacity:0.2;
+      z-index:0;
+      pointer-events:none;
+    }
+    .cnt-hero > * { position:relative; z-index:2; }
+    .cnt-hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: conic-gradient(from 180deg at 75% 50%, rgba(0,210,255,0.06) 0deg, transparent 120deg);
+      pointer-events:none;
+    }
+    .cnt-chip {
+      display:inline-block;
+      border:2px solid var(--clay);
+      color:var(--clay);
+      padding:3px 14px;
+      font-size:0.65rem;
+      font-weight:700;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      margin-bottom:1.5rem;
+      animation:slideDown 0.6s ease both;
+    }
+    .cnt-hero h1 {
+      font-family:'Unbounded',sans-serif;
+      font-size: clamp(1.8rem,9vw,8rem);
+      font-weight:900;
+      line-height:0.9;
+      letter-spacing:-0.03em;
+      color:var(--cream);
+      overflow: hidden;
+    }
+    .cnt-hero h1 em { font-style:normal;display:block;-webkit-text-stroke:3px var(--clay);color:transparent; }
+    .cnt-hero h1 strong { display:block;color:var(--clay); }
+    .cnt-sub { font-size:0.88rem;line-height:1.8;max-width:500px;color:rgba(240,244,248,0.6);margin-top:1rem;animation:slideUp 0.7s 0.25s ease both; }
+
+    /* online dot */
+    .online-row { display:flex;align-items:center;gap:0.6rem;margin-top:1.2rem;animation:slideUp 0.7s 0.4s ease both; }
+    .online-dot { position:relative;width:10px;height:10px; }
+    .online-dot::before {
+      content:"";position:absolute;inset:0;
+      background:var(--green);border-radius:50%;
+    }
+    .online-dot::after {
+      content:"";position:absolute;inset:-4px;
+      background:var(--green);border-radius:50%;
+      animation:pulse-ring 1.5s infinite;
+    }
+    .online-text { font-size:0.7rem;font-weight:700;letter-spacing:0.08em;color:var(--green);text-transform:uppercase; }
+
+    /* ── TICKER ── */
+    .cnt-ticker {
+      background:var(--clay);
+      border-top:3px solid var(--ink);
+      border-bottom:3px solid var(--ink);
+      padding:0.7rem 0;overflow:hidden;white-space:nowrap;
+    }
+    .cnt-ticker-inner { display:inline-flex;gap:3rem;animation:ticker-scroll 22s linear infinite; }
+    .cnt-ticker-item { font-family:'Unbounded',sans-serif;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#fff; }
+
+    /* ── MAIN LAYOUT ── */
+    .cnt-main {
+      display:grid;
+      grid-template-columns:1fr 1.3fr;
+      border-bottom:4px solid var(--ink);
+      min-height:70vh;
+    }
+
+    /* LEFT INFO PANEL */
+    .cnt-info {
+      background:var(--ink);
+      padding:5rem 3rem;
+      border-right:4px solid var(--clay);
+      position:relative;
+      overflow:hidden;
+    }
+    .cnt-info::before {
+      content:"";
+      position:absolute;
+      bottom:-3rem;right:-3rem;
+      width:220px;height:220px;
+      border:3px solid rgba(0,210,255,0.1);
+      transform:rotate(20deg);
+      pointer-events:none;
+    }
+    .info-label { font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--clay);font-weight:700;margin-bottom:0.8rem; }
+    .info-title {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(1.6rem,3vw,2.8rem);
+      font-weight:900;
+      color:var(--cream);
+      line-height:1.1;
+      margin-bottom:3rem;
+    }
+    .info-title span { color:var(--clay); }
+
+    .contact-item {
+      display:flex;
+      align-items:flex-start;
+      gap:1.2rem;
+      margin-bottom:2.5rem;
+      padding-bottom:2.5rem;
+      border-bottom:1px solid rgba(255,255,255,0.07);
+      cursor:default;
+      transition:transform 0.2s;
+    }
+    .contact-item:last-of-type { border-bottom:none; }
+    .contact-item:hover { transform:translateX(6px); }
+    .ci-icon {
+      width:44px;height:44px;
+      background:rgba(0,210,255,0.1);
+      border:2px solid rgba(0,210,255,0.2);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+      color:var(--clay);
+      transition:background 0.2s;
+    }
+    .contact-item:hover .ci-icon { background:var(--clay);color:var(--ink);border-color:var(--clay); }
+    .ci-icon svg { width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none; }
+    .ci-label { font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,244,248,0.4);margin-bottom:0.3rem; }
+    .ci-value { font-size:0.85rem;color:var(--cream);font-weight:700; }
+    .ci-sub { font-size:0.7rem;color:rgba(240,244,248,0.45);margin-top:0.2rem; }
+
+    .response-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:0.6rem;
+      border:2px solid rgba(0,210,255,0.2);
+      padding:0.6rem 1.2rem;
+      margin-top:2rem;
+      background:rgba(0,210,255,0.05);
+    }
+    .rb-dot { width:8px;height:8px;background:var(--green);border-radius:50%;animation:blink 2s infinite; }
+    .rb-text { font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,244,248,0.6); }
+    .rb-text span { color:var(--green); }
+
+    /* RIGHT FORM */
+    .cnt-form-wrap {
+      background:var(--cream);
+      padding:5rem 3.5rem;
+    }
+    .form-title { font-family:'Unbounded',sans-serif;font-size:1.2rem;font-weight:900;color:var(--ink);margin-bottom:0.5rem; }
+    .form-sub { font-size:0.8rem;opacity:0.6;margin-bottom:2.5rem; }
+
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem; }
+    .form-group { display:flex;flex-direction:column; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mud);margin-bottom:0.5rem; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background:transparent;
+      border:2px solid rgba(10,25,47,0.2);
+      padding:0.85rem 1rem;
+      font-family:'Space Mono',monospace;
+      font-size:0.8rem;
+      color:var(--ink);
+      outline:none;
+      transition:border-color 0.15s,background 0.15s;
+      -webkit-appearance:none;
+      appearance:none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color:var(--clay);
+      background:rgba(0,210,255,0.03);
+    }
+    .form-group textarea { resize:vertical;min-height:130px; }
+    .form-group select option { background:var(--cream);color:var(--ink); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color:rgba(10,25,47,0.35); }
+
+    /* Service checkboxes */
+    .service-checks { display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem; }
+    .svc-check {
+      display:flex;
+      align-items:center;
+      gap:0.6rem;
+      border:2px solid rgba(10,25,47,0.15);
+      padding:0.6rem 0.9rem;
+      cursor:default;
+      font-size:0.65rem;
+      font-weight:700;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      color:var(--mud);
+      transition:background 0.15s,border-color 0.15s,color 0.15s;
+      user-select:none;
+    }
+    .svc-check.selected { background:var(--ink);border-color:var(--ink);color:var(--clay); }
+    .svc-check input { display:none; }
+
+    .submit-row { display:flex;align-items:center;justify-content:space-between;margin-top:2.5rem;flex-wrap:wrap;gap:1rem; }
+    .privacy-note { font-size:0.65rem;opacity:0.45;max-width:260px; }
+
+    .submit-btn {
+      background:var(--clay);
+      color:#fff;
+      border:3px solid var(--ink);
+      padding:0.9rem 2.5rem;
+      font-family:'Unbounded',sans-serif;
+      font-size:0.75rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+      cursor:default;
+      box-shadow:5px 5px 0 var(--ink);
+      transition:transform 0.12s,box-shadow 0.12s,background 0.12s;
+    }
+    .submit-btn:hover { transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink); }
+    .submit-btn:active { transform:translate(1px,1px);box-shadow:3px 3px 0 var(--ink); }
+
+    /* Success state */
+    .form-success {
+      display:none;
+      text-align:center;
+      padding:4rem 2rem;
+    }
+    .success-icon {
+      width:72px;height:72px;
+      background:var(--clay);
+      border:3px solid var(--ink);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 1.5rem;
+      color:#fff;
+    }
+    .success-title { font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;color:var(--ink);margin-bottom:0.8rem; }
+    .success-msg { font-size:0.85rem;opacity:0.65;line-height:1.7; }
+
+    /* ── FAQ ── */
+    .cnt-faq {
+      padding:6rem 2.5rem;
+      background:var(--ink);
+      border-bottom:4px solid var(--clay);
+    }
+    .cnt-faq .section-label { font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--clay);font-weight:700;margin-bottom:0.8rem; }
+    .cnt-faq .section-title { font-family:'Unbounded',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:var(--cream);line-height:1;letter-spacing:-0.03em;margin-bottom:3rem; }
+    .cnt-faq .section-title span { color:var(--clay); }
+    .faq-list { max-width:760px; }
+    .faq-row {
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      padding:1.8rem 0;
+      cursor:default;
+    }
+    .faq-q {
+      font-family:'Unbounded',sans-serif;
+      font-size:0.85rem;
+      font-weight:700;
+      color:var(--cream);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      user-select:none;
+    }
+    .faq-q .faq-icon { color:var(--clay);font-size:1.1rem;flex-shrink:0;transition:transform 0.2s; }
+    .faq-row.open .faq-icon { transform:rotate(45deg); }
+    .faq-a {
+      font-size:0.82rem;
+      line-height:1.8;
+      color:rgba(240,244,248,0.55);
+      margin-top:1rem;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.35s cubic-bezier(0.2,1,0.3,1);
+    }
+    .faq-row.open .faq-a { max-height:200px; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal.active { opacity:1;transform:translateY(0); }
+    .reveal-left { opacity:0;transform:translateX(-40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-left.active { opacity:1;transform:translateX(0); }
+    .reveal-right { opacity:0;transform:translateX(40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-right.active { opacity:1;transform:translateX(0); }
+
+    @media(max-width:900px) {
+      .cnt-main { grid-template-columns:1fr; }
+      .cnt-info { border-right:none;border-bottom:4px solid var(--clay); padding:3.5rem 1.5rem; }
+      .cnt-form-wrap { padding:3.5rem 1.5rem; }
+    }
+    @media(max-width:600px) {
+      .cnt-hero { padding:7rem 1.2rem 4rem; }
+      .cnt-faq { padding:4rem 1.2rem; }
+      .form-row { grid-template-columns:1fr; }
+      .service-checks { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body class="grainy">
+    <!-- ─── STACKLY PRELOADER ──────────────────────── -->
+    <div id="stackly-preloader">
+        <div class="preloader-glitch" data-text="STACKLY">STACKLY</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+        <div class="preloader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html"><div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html" style="color:var(--clay)">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+    <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="cnt-hero">
+    <div class="ghost-bg" style="color:rgba(0,210,255,0.04);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;">HI.</div>
+    <div class="cnt-chip">✦ Let's Talk</div>
+    <h1>
+      <span>SAY</span>
+      <em>HELLO</em>
+      <strong>TO US.</strong>
+    </h1>
+    <p class="cnt-sub">Got a project in mind? A problem to solve? Just want to pick our brains? We respond to every message within 24 hours.</p>
+    <div class="online-row">
+      <div class="online-dot"></div>
+      <div class="online-text">Currently Available — Open to new projects</div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="cnt-ticker">
+    <div class="cnt-ticker-inner">
+      <span class="cnt-ticker-item">★ RESPONSE WITHIN 24HRS</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">FREE FIRST CONSULTATION</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">NDA ON REQUEST</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">FIXED-PRICE OR RETAINER</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">★ RESPONSE WITHIN 24HRS</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">FREE FIRST CONSULTATION</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">NDA ON REQUEST</span><span style="opacity:.4">◆</span>
+      <span class="cnt-ticker-item">FIXED-PRICE OR RETAINER</span><span style="opacity:.4">◆</span>
+    </div>
+  </div>
+
+  <!-- MAIN: INFO + FORM -->
+  <div class="cnt-main">
+
+    <!-- INFO PANEL -->
+    <div class="cnt-info reveal-left">
+      <div class="info-label">— Get in Touch</div>
+      <div class="info-title">LET'S<br><span>BUILD</span><br>SOMETHING.</div>
+
+      <div class="contact-item">
+        <div class="ci-icon"><i data-lucide="mail"></i></div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f098959c9c9fb0838491939b9c89de999e">[email&#160;protected]</a></div>
+          <div class="ci-sub">For general enquiries & project briefs</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="ci-icon"><i data-lucide="phone"></i></div>
+        <div>
+          <div class="ci-label">Phone</div>
+          <div class="ci-value">+91 98765 43210</div>
+          <div class="ci-sub">Mon–Fri, 9AM–6PM IST</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="ci-icon"><i data-lucide="map-pin"></i></div>
+        <div>
+          <div class="ci-label">Office</div>
+          <div class="ci-value">Coimbatore, Tamil Nadu</div>
+          <div class="ci-sub">India — Serving global clients</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="ci-icon"><i data-lucide="calendar"></i></div>
+        <div>
+          <div class="ci-label">Book a Call</div>
+          <div class="ci-value">30-min Discovery Call</div>
+          <div class="ci-sub">Free. No obligation. Just conversation.</div>
+        </div>
+      </div>
+
+      <div class="response-badge">
+        <div class="rb-dot"></div>
+        <div class="rb-text">Avg. response: <span>&lt; 4 hours</span></div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="cnt-form-wrap reveal-right">
+      <div id="contactForm">
+        <div class="form-title">Send a Message</div>
+        <div class="form-sub">Fill in the details and we'll get back to you within one business day.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Arjun">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Kumar">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Work Email</label>
+            <input type="email" id="cntEmail" placeholder="arjun@company.com">
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" placeholder="Acme Corp">
+          </div>
+        </div>
+
+        <div class="form-row" style="grid-template-columns:1fr;margin-bottom:1.5rem;">
+          <div class="form-group">
+            <label>Project Budget</label>
+            <select>
+              <option value="">Select a range</option>
+              <option>Under ₹5 Lakh</option>
+              <option>₹5L – ₹20L</option>
+              <option>₹20L – ₹1 Cr</option>
+              <option>₹1 Cr+</option>
+              <option>Let's discuss</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label>Services Needed</label>
+          <div class="service-checks">
+            <label class="svc-check"><input type="checkbox"> Cloud Architecture</label>
+            <label class="svc-check"><input type="checkbox"> Cybersecurity</label>
+            <label class="svc-check"><input type="checkbox"> DevOps / CI-CD</label>
+            <label class="svc-check"><input type="checkbox"> AI / ML</label>
+            <label class="svc-check"><input type="checkbox"> Web & Mobile</label>
+            <label class="svc-check"><input type="checkbox"> Data Engineering</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tell Us About Your Project</label>
+          <textarea placeholder="Describe your project, current challenges, and what success looks like..."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <div class="privacy-note">Your data is secure and will never be shared with third parties.</div>
+          <button class="submit-btn" id="cntSubmit">Send Message →</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon"><i data-lucide="check" style="width:32px;height:32px;stroke:currentColor;stroke-width:2.5;fill:none;"></i></div>
+        <div class="success-title">MESSAGE SENT!</div>
+        <div class="success-msg">Thanks for reaching out. A member of our team will be in touch within 24 hours — usually much sooner.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="cnt-faq">
+    <div class="container">
+      <div class="reveal-left">
+        <div class="section-label">— Common Questions</div>
+        <h2 class="section-title">QUICK <span>ANSWERS</span></h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-row">
+          <div class="faq-q">How quickly do you respond to enquiries? <span class="faq-icon">+</span></div>
+          <div class="faq-a">We respond to all messages within 24 hours on business days. For urgent matters, call us directly — our team is available during IST business hours.</div>
+        </div>
+        <div class="faq-row">
+          <div class="faq-q">Do you work with startups or only enterprises? <span class="faq-icon">+</span></div>
+          <div class="faq-a">Both. We have packages designed for early-stage startups that need infrastructure without the enterprise price tag, as well as full-scale engagements for large organisations.</div>
+        </div>
+        <div class="faq-row">
+          <div class="faq-q">Do you offer fixed-price projects or only retainers? <span class="faq-icon">+</span></div>
+          <div class="faq-a">We offer both models. Fixed-price works well for well-scoped projects. Retainers work better for ongoing development, support, or when requirements are evolving.</div>
+        </div>
+        <div class="faq-row">
+          <div class="faq-q">Can we sign an NDA before discussing our project? <span class="faq-icon">+</span></div>
+          <div class="faq-a">Absolutely. We're happy to sign NDAs before any substantive discussion. Just mention it in your message and we'll have paperwork ready before our first call.</div>
+        </div>
+        <div class="faq-row">
+          <div class="faq-q">What does the discovery call cover? <span class="faq-icon">+</span></div>
+          <div class="faq-a">The 30-minute call covers your current situation, goals, rough timeline, and budget. There's no pitch — just an honest conversation about whether we're the right fit for each other.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-compact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div>
+        <p>Innovative technology solutions for next-generation enterprises. We provide the infrastructure for the digital leaders of tomorrow.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="404.html" class="codepen-link">
+            <i data-lucide="shield-check"></i>
+            ◉ Trusted Solutions Partner
+          </a>
+        </div>
+        <div class="footer-social" style="margin-top:2rem; display:flex; gap:1.2rem;">
+          <a href="404.html" class="social-icon-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="404.html" class="social-icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="404.html" class="social-icon-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>✦ Solutions</h4>
+        <a href="404.html">Cloud Systems</a>
+        <a href="404.html">Custom Software</a>
+        <a href="404.html">Cyber Security</a>
+        <a href="404.html">AI &amp; ML</a>
+        <a href="404.html">Enterprise IT</a>
+        <a href="404.html">Consultancy</a>
+      </div>
+      <div class="footer-col">
+        <h4>◆ Company</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 STACKLY. All rights reserved.</div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+  <script>
+    if(typeof lucide!=='undefined') lucide.createIcons();
+
+    // FAQ accordion
+    document.querySelectorAll('.svc-check').forEach(label=>{
+      label.addEventListener('click',()=>{
+        label.classList.toggle('selected');
+      });
+    });
+
+    // Form submit
+    document.getElementById('cntSubmit').addEventListener('click',()=>{
+      const email = document.getElementById('cntEmail').value.trim();
+      if(!email||!email.includes('@')) {
+        document.getElementById('cntEmail').style.borderColor='#ef476f';
+        setTimeout(()=>{ document.getElementById('cntEmail').style.borderColor=''; },1200);
+        return;
+      }
+      document.getElementById('contactForm').style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+      if(typeof lucide!=='undefined') lucide.createIcons();
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-row').forEach(row=>{
+      row.querySelector('.faq-q').addEventListener('click',()=>{
+        const isOpen = row.classList.contains('open');
+        document.querySelectorAll('.faq-row').forEach(r=>r.classList.remove('open'));
+        if(!isOpen) row.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

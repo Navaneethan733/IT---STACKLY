@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STACKLY | Blog</title>
+  <link rel="icon" type="image/webp" href="./Images/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @keyframes slideUp   { from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes slideDown { from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes ticker-scroll { from{transform:translateX(0);}to{transform:translateX(-50%);} }
+
+    .blg-hero {
+      min-height: auto;
+      background: var(--ink) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 2.5rem 3rem;
+      border-bottom: 4px solid var(--clay);
+      position: relative;
+      overflow: hidden;
+    }
+    .blg-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url('./Images/hero-1.webp');
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      opacity:0.2;
+      z-index:0;
+      pointer-events:none;
+    }
+    .blg-hero > * { position:relative; z-index:2; }
+    .blg-hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(0,210,255,0.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .blg-chip {
+      display:inline-block;
+      border:2px solid var(--clay);
+      color:var(--clay);
+      padding:3px 14px;
+      font-size:0.65rem;
+      font-weight:700;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      margin-bottom:1.5rem;
+      animation:slideDown 0.6s ease both;
+    }
+    .blg-hero h1 {
+      font-family:'Unbounded',sans-serif;
+      font-size: clamp(1.8rem,9vw,7.5rem);
+      font-weight:900;
+      line-height:0.9;
+      letter-spacing:-0.03em;
+      color:var(--cream);
+      overflow: hidden;
+    }
+    .blg-hero h1 em { font-style:normal;display:block;-webkit-text-stroke:3px var(--clay);color:transparent; }
+    .blg-hero h1 strong { display:block;color:var(--clay); }
+    .blg-sub {
+      font-size:0.88rem;line-height:1.8;max-width:500px;
+      color:rgba(240,244,248,0.65);
+      margin-top:1rem;
+      animation:slideUp 0.7s 0.25s ease both;
+    }
+
+    /* ── FILTER BAR ── */
+    .blg-filter {
+      background:var(--cream);
+      border-bottom:3px solid var(--ink);
+      padding:1.2rem 2.5rem;
+      display:flex;
+      gap:0.8rem;
+      flex-wrap:wrap;
+      align-items:center;
+      position:sticky;
+      top:62px;
+      z-index:90;
+    }
+    .filter-label { font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.5;margin-right:0.5rem; }
+    .filter-btn {
+      background:transparent;
+      border:2px solid rgba(10,25,47,0.25);
+      padding:4px 14px;
+      font-family:'Space Mono',monospace;
+      font-size:0.65rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      cursor:default;
+      color:var(--ink);
+      transition:background 0.15s,border-color 0.15s,color 0.15s;
+    }
+    .filter-btn:hover,.filter-btn.active { background:var(--clay);border-color:var(--clay);color:#fff; }
+
+    /* ── BLOG BODY ── */
+    .blg-body {
+      padding:5rem 2.5rem;
+      background:var(--cream);
+      border-bottom:4px solid var(--ink);
+    }
+
+    /* Featured post */
+    .blg-featured {
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:0;
+      border:3px solid var(--ink);
+      margin-bottom:4rem;
+      overflow:hidden;
+    }
+    .blg-featured-img {
+      background:var(--ink);
+      background-image:url('./Images/hero-2.webp');
+      background-size:cover;
+      background-position:center;
+      min-height:380px;
+      display:flex;
+      align-items:flex-end;
+      padding:2.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .blg-featured-img::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(0,210,255,0.04) 8px,rgba(0,210,255,0.04) 9px);
+    }
+    .featured-cat {
+      position:absolute;
+      top:2rem;left:2.5rem;
+      background:var(--clay);
+      color:#fff;
+      border:2px solid var(--ink);
+      padding:3px 12px;
+      font-size:0.6rem;
+      font-weight:700;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+    }
+    .featured-num {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(4rem,10vw,8rem);
+      font-weight:900;
+      color:rgba(0,210,255,0.15);
+      position:absolute;
+      bottom:-0.5rem;
+      right:1rem;
+      pointer-events:none;
+    }
+    .blg-featured-content {
+      padding:3rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:var(--cream);
+    }
+    .post-meta {
+      display:flex;
+      gap:1rem;
+      align-items:center;
+      margin-bottom:1.2rem;
+      flex-wrap:wrap;
+    }
+    .post-date { font-size:0.65rem;opacity:0.5;letter-spacing:0.08em; }
+    .post-read { font-size:0.65rem;opacity:0.5;letter-spacing:0.08em; }
+    .post-tag {
+      font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+      border:1.5px solid rgba(10,25,47,0.2);
+      padding:2px 8px;color:var(--mud);
+    }
+    .featured-title {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(1.2rem,2.5vw,2rem);
+      font-weight:900;
+      line-height:1.1;
+      letter-spacing:-0.02em;
+      color:var(--ink);
+      margin-bottom:1rem;
+    }
+    .featured-excerpt { font-size:0.82rem;line-height:1.8;opacity:0.7;margin-bottom:2rem; }
+    .post-author-row { display:flex;align-items:center;gap:0.8rem;justify-content:space-between; }
+    .author-avatar {
+      width:36px;height:36px;
+      background:var(--clay);
+      border:2px solid var(--ink);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Unbounded',sans-serif;
+      font-size:0.65rem;
+      font-weight:900;
+      color:#fff;
+      flex-shrink:0;
+    }
+    .author-name { font-size:0.7rem;font-weight:700;color:var(--ink); }
+    .author-title-text { font-size:0.6rem;opacity:0.5; }
+    .read-link {
+      background:var(--ink);
+      color:var(--cream);
+      border:2px solid var(--ink);
+      padding:0.5rem 1.2rem;
+      font-family:'Space Mono',monospace;
+      font-size:0.65rem;
+      font-weight:700;
+      text-transform:uppercase;
+      text-decoration:none;
+      box-shadow:3px 3px 0 var(--clay);
+      transition:transform 0.12s,box-shadow 0.12s;
+      white-space:nowrap;
+    }
+    .read-link:hover { transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--clay); }
+
+    /* Grid posts */
+    .blg-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+      gap:0;
+      border:3px solid var(--ink);
+    }
+    .blg-card {
+      padding:2.5rem;
+      border:1px solid rgba(10,25,47,0.1);
+      position:relative;
+      cursor:default;
+      transition:background 0.25s;
+      overflow:hidden;
+    }
+    .blg-card::after {
+      content:"";
+      position:absolute;
+      bottom:0;left:0;right:0;
+      height:3px;
+      background:var(--clay);
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform 0.35s cubic-bezier(0.2,1,0.3,1);
+    }
+    .blg-card:hover::after { transform:scaleX(1); }
+    .blg-card:hover { background:var(--ink); }
+    .blg-card:hover .blg-card-title { color:var(--cream); }
+    .blg-card:hover .blg-card-excerpt { color:rgba(240,244,248,0.6); }
+    .blg-card:hover .post-tag { border-color:rgba(0,210,255,0.3);color:var(--clay); }
+    .blg-card:hover .post-date,.blg-card:hover .post-read { color:rgba(240,244,248,0.4); }
+    .blg-card:hover .author-name { color:var(--cream); }
+    .blg-card:hover .author-title-text { color:rgba(240,244,248,0.4); }
+    .blg-card:hover .read-link { background:var(--clay);border-color:var(--clay);color:var(--ink); }
+    .blg-card-cat {
+      display:inline-block;
+      background:var(--clay);
+      color:#fff;
+      border:2px solid var(--ink);
+      padding:3px 10px;
+      font-size:0.58rem;
+      font-weight:700;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      margin-bottom:1.2rem;
+    }
+    .blg-card-title {
+      font-family:'Unbounded',sans-serif;
+      font-size:0.95rem;
+      font-weight:900;
+      line-height:1.2;
+      letter-spacing:-0.01em;
+      color:var(--ink);
+      margin-bottom:0.8rem;
+      transition:color 0.25s;
+    }
+    .blg-card-excerpt { font-size:0.78rem;line-height:1.75;opacity:0.65;color:var(--ink);transition:color 0.25s;margin-bottom:1.5rem; }
+    .blg-card-footer { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem; }
+
+    /* ── NEWSLETTER ── */
+    .blg-newsletter {
+      background:var(--ink);
+      padding:6rem 2.5rem;
+      border-bottom:4px solid var(--clay);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:3rem;
+      flex-wrap:wrap;
+      position:relative;
+      overflow:hidden;
+    }
+    .blg-newsletter::before {
+      content:"@";
+      position:absolute;
+      right:1rem;
+      top:50%;
+      transform:translateY(-50%);
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(8rem,18vw,16rem);
+      font-weight:900;
+      color:rgba(0,210,255,0.05);
+      pointer-events:none;
+    }
+    .nl-text h2 { font-family:'Unbounded',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:var(--cream);line-height:1; }
+    .nl-text p { font-size:0.85rem;color:rgba(240,244,248,0.55);margin-top:0.8rem; }
+    .nl-form { display:flex;gap:0;border:3px solid var(--clay);position:relative;z-index:2; }
+    .nl-input {
+      background:transparent;
+      border:none;
+      padding:0.9rem 1.5rem;
+      font-family:'Space Mono',monospace;
+      font-size:0.78rem;
+      color:var(--cream);
+      width:280px;
+      outline:none;
+    }
+    .nl-input::placeholder { color:rgba(240,244,248,0.3); }
+    .nl-btn {
+      background:var(--clay);
+      border:none;
+      padding:0.9rem 1.5rem;
+      font-family:'Unbounded',sans-serif;
+      font-size:0.68rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      color:#fff;
+      cursor:default;
+      transition:background 0.15s;
+      white-space:nowrap;
+    }
+    .nl-btn:hover { background:var(--mud); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal.active { opacity:1;transform:translateY(0); }
+    .reveal-left { opacity:0;transform:translateX(-40px);transition:opacity 0.8s cubic-bezier(0.2,1,0.3,1), transform 0.8s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-left.active { opacity:1;transform:translateX(0); }
+    .reveal-stagger > * { opacity:0;transform:translateY(30px);transition:opacity 0.6s cubic-bezier(0.2,1,0.3,1), transform 0.6s cubic-bezier(0.2,1,0.3,1); }
+    .reveal-stagger.active > *:nth-child(1){opacity:1;transform:translateY(0);transition-delay:0s;}
+    .reveal-stagger.active > *:nth-child(2){opacity:1;transform:translateY(0);transition-delay:0.1s;}
+    .reveal-stagger.active > *:nth-child(3){opacity:1;transform:translateY(0);transition-delay:0.2s;}
+    .reveal-stagger.active > *:nth-child(4){opacity:1;transform:translateY(0);transition-delay:0.3s;}
+    .reveal-stagger.active > *:nth-child(5){opacity:1;transform:translateY(0);transition-delay:0.4s;}
+    .reveal-stagger.active > *:nth-child(6){opacity:1;transform:translateY(0);transition-delay:0.5s;}
+
+    @media(max-width:768px) {
+      .blg-hero { padding:7rem 1.2rem 4rem; }
+      .blg-body { padding:3rem 1.2rem; }
+      .blg-featured { grid-template-columns:1fr; }
+      .blg-featured-img { min-height:220px; }
+      .blg-filter { padding:1rem 1.2rem;top:60px; }
+      .nl-input { width:180px; }
+      .blg-newsletter { padding:4rem 1.2rem;flex-direction:column; }
+    }
+  </style>
+</head>
+<body class="grainy">
+    <!-- ─── STACKLY PRELOADER ──────────────────────── -->
+    <div id="stackly-preloader">
+        <div class="preloader-glitch" data-text="STACKLY">STACKLY</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+        <div class="preloader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html"><div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html" style="color:var(--clay)">Blog</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+    <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="blg-hero">
+    <div class="ghost-bg" style="color:rgba(0,210,255,0.04);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;">BLOG</div>
+    <div class="blg-chip">✦ Insights & Engineering</div>
+    <h1>
+      <span>THE</span>
+      <em>STACKLY</em>
+      <strong>SIGNAL.</strong>
+    </h1>
+    <p class="blg-sub">Deep-dives on cloud architecture, DevOps culture, cybersecurity, AI/ML, and the craft of building software that scales.</p>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="blg-filter">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Cloud</button>
+    <button class="filter-btn">DevOps</button>
+    <button class="filter-btn">Security</button>
+    <button class="filter-btn">AI / ML</button>
+    <button class="filter-btn">Engineering</button>
+    <button class="filter-btn">Case Studies</button>
+  </div>
+
+  <!-- BLOG BODY -->
+  <section class="blg-body">
+    <div class="container">
+
+      <!-- FEATURED -->
+      <div class="blg-featured reveal">
+        <div class="blg-featured-img">
+          <div class="featured-cat">Featured</div>
+          <div class="featured-num">01</div>
+        </div>
+        <div class="blg-featured-content">
+          <div>
+            <div class="post-meta">
+              <span class="post-date">Mar 18, 2025</span>
+              <span class="post-read">9 min read</span>
+              <span class="post-tag">Cloud</span>
+            </div>
+            <div class="featured-title">Why Multi-Cloud Isn't the Answer (And What You Should Do Instead)</div>
+            <div class="featured-excerpt">The industry has been sold a lie: that spreading your infrastructure across multiple cloud providers equals resilience. In practice, it usually equals complexity debt that quietly destroys engineering velocity.</div>
+          </div>
+          <div class="post-author-row">
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+              <div class="author-avatar">AK</div>
+              <div>
+                <div class="author-name">Arjun Kumar</div>
+                <div class="author-title-text">CEO & Cloud Architect</div>
+              </div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="blg-grid reveal-stagger">
+        <div class="blg-card">
+          <div style="width:100%; height:160px; background-image:url('./Images/cloud.webp'); background-size:cover; background-position:center; margin-bottom:1.5rem; border-bottom:3px solid var(--clay);"></div>
+          <div class="blg-card-cat">DevOps</div>
+          <div class="post-meta"><span class="post-date">Mar 12, 2025</span><span class="post-read">6 min</span></div>
+          <div class="blg-card-title">GitOps in 2025: The Patterns That Actually Work at Scale</div>
+          <div class="blg-card-excerpt">We've run GitOps on 40+ production systems. Here's what the tutorials don't tell you about drift detection, secret management, and rollback strategies.</div>
+          <div class="blg-card-footer">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <div class="author-avatar" style="width:28px;height:28px;font-size:0.55rem;">PM</div>
+              <div><div class="author-name" style="font-size:0.65rem;">Priya Mani</div></div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+
+        <div class="blg-card">
+          <div style="width:100%; height:160px; background-image:url('./Images/security.webp'); background-size:cover; background-position:center; margin-bottom:1.5rem; border-bottom:3px solid var(--clay);"></div>
+          <div class="blg-card-cat">Security</div>
+          <div class="post-meta"><span class="post-date">Mar 6, 2025</span><span class="post-read">8 min</span></div>
+          <div class="blg-card-title">Zero Trust Is Not a Product. It's an Architecture.</div>
+          <div class="blg-card-excerpt">Every vendor is selling "Zero Trust" now. We break down what the term actually means, what it doesn't, and how to implement it without buying another tool.</div>
+          <div class="blg-card-footer">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <div class="author-avatar" style="width:28px;height:28px;font-size:0.55rem;">VN</div>
+              <div><div class="author-name" style="font-size:0.65rem;">Vikram Nair</div></div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+
+        <div class="blg-card">
+          <div style="width:100%; height:160px; background-image:url('./Images/consulting.webp'); background-size:cover; background-position:center; margin-bottom:1.5rem; border-bottom:3px solid var(--clay);"></div>
+          <div class="blg-card-cat">AI / ML</div>
+          <div class="post-meta"><span class="post-date">Feb 28, 2025</span><span class="post-read">11 min</span></div>
+          <div class="blg-card-title">Embedding LLMs in Existing Products Without Blowing Up Your Architecture</div>
+          <div class="blg-card-excerpt">The integration is rarely the hard part. The hard part is context management, latency budgets, and knowing when NOT to call the model.</div>
+          <div class="blg-card-footer">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <div class="author-avatar" style="width:28px;height:28px;font-size:0.55rem;">SR</div>
+              <div><div class="author-name" style="font-size:0.65rem;">Shreya Rajan</div></div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+
+        <div class="blg-card">
+          <div class="blg-card-cat">Engineering</div>
+          <div class="post-meta"><span class="post-date">Feb 20, 2025</span><span class="post-read">5 min</span></div>
+          <div class="blg-card-title">The Internal Developer Platform We Wish We'd Built Sooner</div>
+          <div class="blg-card-excerpt">After scaling to 30 engineers, we finally built an IDP. Here's what it replaced, what we built it with, and what we'd do differently.</div>
+          <div class="blg-card-footer">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <div class="author-avatar" style="width:28px;height:28px;font-size:0.55rem;">PM</div>
+              <div><div class="author-name" style="font-size:0.65rem;">Priya Mani</div></div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+
+        <div class="blg-card">
+          <div class="blg-card-cat">Case Study</div>
+          <div class="post-meta"><span class="post-date">Feb 14, 2025</span><span class="post-read">14 min</span></div>
+          <div class="blg-card-title">How We Cut a Fintech Client's Cloud Bill by 61% in 8 Weeks</div>
+          <div class="blg-card-excerpt">A real breakdown — what was burning money, what we changed, what we refused to cut, and the performance results six months later.</div>
+          <div class="blg-card-footer">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <div class="author-avatar" style="width:28px;height:28px;font-size:0.55rem;">AK</div>
+              <div><div class="author-name" style="font-size:0.65rem;">Arjun Kumar</div></div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+
+        <div class="blg-card">
+          <div class="blg-card-cat">Cloud</div>
+          <div class="post-meta"><span class="post-date">Feb 8, 2025</span><span class="post-read">7 min</span></div>
+          <div class="blg-card-title">Kubernetes Is Overkill for Most Teams. Here's What to Use Instead.</div>
+          <div class="blg-card-excerpt">K8s is powerful. It's also wildly complex. We outline the decision framework we use for every new client engagement to decide if they actually need it.</div>
+          <div class="blg-card-footer">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <div class="author-avatar" style="width:28px;height:28px;font-size:0.55rem;">SR</div>
+              <div><div class="author-name" style="font-size:0.65rem;">Shreya Rajan</div></div>
+            </div>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="blg-newsletter">
+    <div class="nl-text reveal-left">
+      <h2>THE WEEKLY<br>SIGNAL.</h2>
+      <p>One engineering insight, every Friday. No fluff, no spam.</p>
+    </div>
+    <div style="position:relative;z-index:2;" class="reveal">
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="your@email.com" id="nlEmail">
+        <button class="nl-btn" id="nlBtn">Subscribe →</button>
+      </div>
+      <div id="nlSuccess" style="display:none;color:var(--clay);font-size:0.78rem;margin-top:1rem;font-weight:700;">✓ You're in. See you Friday.</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-compact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">STAC<span><img src="./Images/logo.webp" alt=""></span>KLY</div>
+        <p>Innovative technology solutions for next-generation enterprises. We provide the infrastructure for the digital leaders of tomorrow.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="404.html" class="codepen-link">
+            <i data-lucide="shield-check"></i>
+            ◉ Trusted Solutions Partner
+          </a>
+        </div>
+        <div class="footer-social" style="margin-top:2rem; display:flex; gap:1.2rem;">
+          <a href="404.html" class="social-icon-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="404.html" class="social-icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="404.html" class="social-icon-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>✦ Solutions</h4>
+        <a href="404.html">Cloud Systems</a>
+        <a href="404.html">Custom Software</a>
+        <a href="404.html">Cyber Security</a>
+        <a href="404.html">AI &amp; ML</a>
+        <a href="404.html">Enterprise IT</a>
+        <a href="404.html">Consultancy</a>
+      </div>
+      <div class="footer-col">
+        <h4>◆ Company</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 STACKLY. All rights reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    if(typeof lucide!=='undefined') lucide.createIcons();
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Newsletter
+    const nlBtn = document.getElementById('nlBtn');
+    if(nlBtn) {
+      nlBtn.addEventListener('click',()=>{
+        const v = document.getElementById('nlEmail').value.trim();
+        if(!v||!v.includes('@')) { document.getElementById('nlEmail').style.borderColor='var(--pink)'; return; }
+        document.querySelector('.nl-form').style.display='none';
+        document.getElementById('nlSuccess').style.display='block';
+      });
+    }
+  </script>
+</body>
+</html>

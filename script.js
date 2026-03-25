@@ -1,4 +1,4 @@
-/* ─── PARALLAX (hero columns) ─────────────────── */
+
 const cols = document.querySelectorAll(".parallax-col");
 let ticking = false;
 
@@ -32,7 +32,6 @@ window.addEventListener(
   { passive: true }
 );
 
-/* ─── GALLERY DRAG SCROLL ─────────────────────── */
 const gallery = document.getElementById("galleryStrip");
 let isDown = false,
   startX = 0,
@@ -58,7 +57,6 @@ if (gallery) {
     });
 }
 
-/* ─── GALLERY AUTO-PARALLAX ───────────────────── */
 const gallerySection = document.querySelector(".gallery-strip");
 function updateGallery() {
   if (!gallerySection || !gallery) return;
@@ -77,7 +75,6 @@ window.addEventListener("scroll", () => requestAnimationFrame(updateGallery), {
   passive: true
 });
 
-/* ─── SUBSCRIBE ───────────────────────────────── */
 const subBtn = document.getElementById("subBtn");
 if (subBtn) {
     subBtn.addEventListener("click", () => {
@@ -103,7 +100,6 @@ if (emailInput) {
     });
 }
 
-/* ─── CARD HOVER COLOUR TINT ──────────────────── */
 document.querySelectorAll(".class-card").forEach((card) => {
   card.addEventListener("mouseenter", () => {
     card.style.filter = "brightness(0.96)";
@@ -113,7 +109,6 @@ document.querySelectorAll(".class-card").forEach((card) => {
   });
 });
 
-/* ─── SCROLL REVEAL & COUNTERS ───────────────── */
 const revealOptions = {
     threshold: 0.1,
     rootMargin: "0px 0px -50px 0px"
@@ -132,7 +127,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, revealOptions);
 
 document.querySelectorAll('h1, .reveal, .reveal-left, .reveal-right, .reveal-stagger, section, .class-card, .stat-box, .faq-item, .quote-card').forEach(el => {
-    // If it doesn't already have a generic or directional reveal class, give it the default one
+    
     if (!el.className.includes('reveal')) {
         el.classList.add('reveal');
     }
@@ -154,8 +149,7 @@ function animateCounter(el) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const currentCount = progress * target;
-        
-        // Handle decimals vs integers
+
         if (rawText.includes('.')) {
             el.innerHTML = currentCount.toFixed(1) + (rawText.includes('%') ? '%' : (rawText.includes('+') ? '+' : ''));
         } else {
@@ -165,13 +159,12 @@ function animateCounter(el) {
         if (progress < 1) {
             requestAnimationFrame(update);
         } else {
-            el.innerHTML = rawText; // Final state
+            el.innerHTML = rawText; 
         }
     };
     requestAnimationFrame(update);
 }
 
-/* ─── TICKERS / MARQUEES ──────────────────────── */
 function initTickers() {
   const tickers = [
     { el: document.getElementById("tickerInner"), speed: 0.8 },
@@ -192,13 +185,11 @@ function initTickers() {
 }
 initTickers();
 
-/* ─── LUCIDE INIT ────────────────────────────── */
 if (typeof lucide !== 'undefined') {
   lucide.createIcons();
   setTimeout(() => lucide.createIcons(), 500);
 }
 
-/* ─── NAVIGATION TOGGLE ───────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.getElementById('navToggle');
     const nav = document.querySelector('nav');
@@ -207,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             nav.classList.toggle('nav-open');
         });
-        // Close menu when clicking outside
+        
         document.addEventListener('click', (e) => {
             if (nav.classList.contains('nav-open') && !nav.contains(e.target)) {
                 nav.classList.remove('nav-open');
@@ -216,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* ─── STACKLY PRELOADER LOGIC ─── */
 document.addEventListener("DOMContentLoaded", () => {
     const preloader = document.getElementById("stackly-preloader");
     if (!preloader) return;
